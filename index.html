@@ -147,7 +147,7 @@ h2.section-title .hl{color:var(--accent)}
   <div id="tab-home" class="tab-panel active">
     <div class="stats-grid">
       <div class="stat-card"><div class="stat-val" id="stat-total">471</div><div class="stat-lbl">Total Questions</div></div>
-      <div class="stat-card"><div class="stat-val" id="stat-topics">26</div><div class="stat-lbl">Topics Covered</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-topics">0</div><div class="stat-lbl">Topics Practiced</div></div>
       <div class="stat-card"><div class="stat-val" id="stat-mastery">0%</div><div class="stat-lbl">Mastery</div></div>
     </div>
     <div class="card">
@@ -326,7 +326,7 @@ const ALL_TOPICS = [...new Set(QUESTIONS.map(q => q.topic))].sort();
 const STORAGE_KEY = 'aws-quiz-progress';
 function loadProgress() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); } catch { return {}; } }
 function saveProgress(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
-function isMastered(e) { return e && e.correct >= 2 && e.correct > e.incorrect; }
+function isMastered(e) { return e && e.correct >= 1; }
 function isWeak(e) { return e && e.incorrect > 0 && !isMastered(e); }
 
 function recordAnswer(idx, correct) {
@@ -341,7 +341,9 @@ function recordAnswer(idx, correct) {
 function updateHomeStats() {
   const p = loadProgress();
   const mastered = QUESTIONS.filter((_,i) => isMastered(p[i])).length;
+  const topicsSeen = new Set(QUESTIONS.filter((_,i) => p[i] && (p[i].correct > 0 || p[i].incorrect > 0)).map(q => q.topic || tagQuestion(q))).size;
   document.getElementById('stat-mastery').textContent = Math.round(mastered/QUESTIONS.length*100)+'%';
+  document.getElementById('stat-topics').textContent = topicsSeen || new Set(QUESTIONS.map(q => q.topic || tagQuestion(q))).size;
   document.getElementById('stat-mastered-text').textContent = mastered+' of '+QUESTIONS.length+' mastered';
   document.getElementById('home-progress-fill').style.width = (mastered/QUESTIONS.length*100)+'%';
 }
