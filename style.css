@@ -123,13 +123,13 @@ h2.section-title .hl{color:var(--accent)}
 .weak-topic-none{color:var(--text2);font-size:0.75rem}
 
 @media(max-width:640px){
-  nav{padding:6px 12px;gap:6px}
-  .nav-logo{padding:8px 0;margin-right:8px;font-size:1rem}
+  nav{padding:8px 12px;gap:6px;display:grid;grid-template-columns:auto 1fr auto;align-items:center}
+  .nav-logo{padding:8px 0;margin-right:0;font-size:1rem;min-width:0;overflow:hidden;text-overflow:ellipsis}
   .nav-logo span{display:none}
-  .theme-toggle{margin-left:auto;width:32px;height:32px;font-size:0.85rem}
-  .nav-tabs{order:3;width:100%;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+  .theme-toggle{margin-left:0;width:36px;height:36px;font-size:0.95rem;border-radius:10px;justify-self:end}
+  .nav-tabs{grid-column:1 / -1;width:100%;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;border-top:1px solid var(--border);padding-top:4px}
   .nav-tabs::-webkit-scrollbar{display:none}
-  .nav-tab{padding:12px 10px;font-size:0.78rem;flex:0 0 auto}
+  .nav-tab{padding:10px 10px;font-size:0.78rem;flex:0 0 auto}
   main{padding:18px 12px}
   .question-card{padding:16px}
   .result-card{padding:24px 16px}
