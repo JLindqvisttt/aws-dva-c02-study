@@ -1,0 +1,71 @@
+const BD='https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/certification/approved/images/certification-badges/';
+const CERTS = [
+  { id:'clf-c02', code:'CLF-C02', name:'Cloud Practitioner', level:'Foundational', color:'#64748b', total:0, href:'coming-soon.html?cert=clf-c02', built:false, topics:['Cloud Concepts','Billing','Security','Core Services'], desc:'Foundational understanding of AWS cloud concepts and value.', badge:BD+'450x520_lower.156c60f871fa39a09e89586c7520d404d18d13af.png' },
+  { id:'aif-c01', code:'AIF-C01', name:'AI Practitioner', level:'Foundational', color:'#64748b', total:0, href:'coming-soon.html?cert=aif-c01', built:false, topics:['GenAI','ML Basics','AWS AI Services','Responsible AI'], desc:'Foundational AI and generative AI knowledge on AWS.', badge:BD+'1268_AWS_Cert_Template_badges_AI-Practitioner.aab7160e1a9809a5f39199b24ee014bc2598a4d1.png' },
+  { id:'dva-c02', code:'DVA-C02', name:'Developer', level:'Associate', color:'#06b6d4', total:476, href:'dva-c02.html', built:true, topics:['Lambda','DynamoDB','API Gateway','SQS/SNS','CodePipeline'], desc:'Develop, deploy, and debug cloud-based applications.', badge:BD+'1268_AWS_Cert_Template_badges_Developer.48b58911afa0d71c5655bbaf91fa5442bcc32f5d.png' },
+  { id:'saa-c03', code:'SAA-C03', name:'Solutions Architect', level:'Associate', color:'#06b6d4', total:35, href:'saa-c03.html', built:true, topics:['VPC','EC2+Auto Scaling','S3+CloudFront','RDS+Aurora','Route 53'], desc:'Design resilient and cost-optimized AWS architectures.', badge:BD+'1268_AWS_Cert_Template_badges_Solutions-Architect-Associate.b9f37074b41d1f226d896be5ae25c2d53a3d018a.png' },
+  { id:'dea-c01', code:'DEA-C01', name:'Data Engineer', level:'Associate', color:'#06b6d4', total:0, href:'coming-soon.html?cert=dea-c01', built:false, topics:['Data Lakes','ETL','Streaming','Governance'], desc:'Design and build data pipelines and analytics solutions.', badge:BD+'1268_AWS_Cert_Template_badges_Data-Engineer-Associate.9fbc85c55c859477142224b72b9c85e5f652bd32.png' },
+  { id:'cloudops-c01', code:'CloudOps-C01', name:'CloudOps Engineer', level:'Associate', color:'#06b6d4', total:0, href:'coming-soon.html?cert=cloudops-c01', built:false, topics:['Monitoring','Operations','Resilience','Security'], desc:'Deploy, manage, and operate workloads on AWS.', badge:BD+'AWS_Cert_Template_badges_CloudOps-Associate.cf2d56533d61c33192dfa167dace6f7ade7ae81d.png' },
+  { id:'mla-c01', code:'MLA-C01', name:'Machine Learning Engineer', level:'Associate', color:'#06b6d4', total:0, href:'coming-soon.html?cert=mla-c01', built:false, topics:['Feature Engineering','Training','MLOps','Inference'], desc:'Build, train, and deploy machine learning workloads.', badge:BD+'1268_AWS_Cert_Template_badges_Machine-Learning-Engineer-Associate.a1b26660e12e04d271aa95ca27d0466c05f47267.png' },
+  { id:'genai-developer-pro', code:'GenAI-Dev-Pro', name:'Generative AI Developer', level:'Professional', color:'#f97316', total:0, href:'coming-soon.html?cert=genai-developer-pro', built:false, topics:['LLM Integration','Prompt Engineering','Agents','Fine-tuning'], desc:'Build and deploy production-ready AI solutions using generative AI.', badge:BD+'AWS_Cert_Template_badges_Generative-AI-Developer.71272f99ee39092fd6fe7a119330dad479d67ca4.png' },
+  { id:'sap-c02', code:'SAP-C02', name:'Solutions Architect', level:'Professional', color:'#f97316', total:0, href:'coming-soon.html?cert=sap-c02', built:false, topics:['Enterprise Architecture','Migration','Cost Control','Hybrid'], desc:'Advanced design for complex, large-scale AWS environments.', badge:BD+'1268_AWS_Cert_Template_badges_Solutions-Architect-Professional.e21d85644aef79d8795c2be140a88f9127cd80bf.png' },
+  { id:'dop-c02', code:'DOP-C02', name:'DevOps Engineer', level:'Professional', color:'#f97316', total:0, href:'coming-soon.html?cert=dop-c02', built:false, topics:['Release Automation','Observability','Security','Reliability'], desc:'Operate and evolve delivery pipelines and production systems.', badge:BD+'1268_AWS_Cert_Template_badges_DevOps-Engineer.dca519446f0ce62e25dd4e47fec830c73e7e7393.png' },
+  { id:'ans-c01', code:'ANS-C01', name:'Advanced Networking', level:'Specialty', color:'#ec4899', total:0, href:'coming-soon.html?cert=ans-c01', built:false, topics:['Hybrid Networking','Routing','DNS','Connectivity'], desc:'Advanced design and operation of AWS and hybrid networking.', badge:BD+'1268_AWS_Cert_Template_badges_Adv-Networking.a8edc59ae823bcd1775a719791076b3de99cb8ee.png' },
+  { id:'mls-c01', code:'MLS-C01', name:'Machine Learning', level:'Specialty', color:'#ec4899', total:0, href:'coming-soon.html?cert=mls-c01', built:false, topics:['ML Problem Framing','Modeling','Deployment','Optimization'], desc:'Advanced machine learning design and operations on AWS.', badge:BD+'AWS-CredlyBadges_Machine-Learning.b7b18deedcc86c5bc96939d3b62b1a3ed8b76c3b.png' },
+  { id:'scs-c02', code:'SCS-C02', name:'Security', level:'Specialty', color:'#ec4899', total:35, href:'scs-c02.html', built:true, topics:['IAM+Policies','KMS+CloudHSM','GuardDuty','CloudTrail','WAF+Shield'], desc:'Secure AWS workloads with layered controls and governance.', badge:BD+'1268_AWS_Cert_Template_badges_Security.a1b26660e12e04d271aa95ca27d0466c05f47267.png' }
+];
+
+var currentLevel = 'all';
+
+function readProgress(certId){try{var raw=localStorage.getItem('aws-quiz-progress-'+certId);if(!raw)return{mastered:0,seen:0};var p=JSON.parse(raw);var mastered=0,seen=0;for(var key in p){var e=p[key];if(e&&(e.correct>0||e.incorrect>0))seen++;if(e&&e.correct>=1)mastered++;}return{mastered:mastered,seen:seen};}catch(e){return{mastered:0,seen:0};}}
+
+function filterCerts(level) {
+  currentLevel = level;
+  document.querySelectorAll('.level-pill').forEach(function(p){ p.classList.toggle('active', p.dataset.level === level); });
+  buildCards();
+}
+
+function buildFilterBar() {
+  var bar = document.getElementById('level-filter-bar');
+  var levels = ['all','Foundational','Associate','Professional','Specialty'];
+  var labels = {all:'All'};
+  var counts = {all:CERTS.length};
+  levels.slice(1).forEach(function(l){ counts[l] = CERTS.filter(function(c){return c.level===l;}).length; labels[l]=l; });
+  bar.innerHTML = levels.map(function(l){
+    return '<button class="level-pill'+(l==='all'?' active':'')+'" data-level="'+l+'" onclick="filterCerts(\''+l+'\')">'+
+      (l==='all'?'All':l)+'<span class="level-count">('+counts[l]+')</span></button>';
+  }).join('');
+}
+
+function buildCards(){
+  var grid = document.getElementById('cert-grid');
+  var list = currentLevel === 'all' ? CERTS : CERTS.filter(function(c){ return c.level === currentLevel; });
+  var html = '';
+  for(var i=0;i<list.length;i++){
+    var cert=list[i];
+    var prog=readProgress(cert.id);
+    var pct=cert.total>0?Math.round((prog.mastered/cert.total)*100):0;
+    var topics=cert.topics.map(function(t){return '<span class="cert-topic">'+t+'</span>';}).join('');
+    var C=106.81;var progressHtml=cert.built?('<div class="cert-progress-wrap"><div class="prog-ring-row"><div class="prog-ring-wrap"><svg class="prog-ring" width="52" height="52" viewBox="0 0 52 52"><circle class="prog-ring-bg" cx="26" cy="26" r="17"/><circle class="prog-ring-fill" cx="26" cy="26" r="17" style="stroke:'+cert.color+';stroke-dasharray:'+C+';stroke-dashoffset:'+(C*(1-pct/100)).toFixed(2)+'"/></svg><div class="prog-ring-inner"><span class="prog-ring-pct">'+pct+'%</span></div></div><div class="prog-ring-labels"><span class="prog-ring-count">'+prog.mastered+' / '+cert.total+'</span><span class="prog-ring-sub">questions mastered</span></div></div></div>'):'';
+  html+='<a class="cert-card'+(cert.built?'':' coming-soon')+'" href="'+cert.href+'" style="--cert-color:'+cert.color+'">'+ 
+      (!cert.built?'<span class="coming-soon-badge">Coming Soon</span>':'')+
+      '<img class="cert-card-badge-img" src="'+cert.badge+'" alt="'+cert.code+' badge" loading="lazy">'+ 
+      '<div class="cert-badge">'+cert.level+'</div>'+
+      '<div class="cert-code">'+cert.code+'</div>'+
+      '<div class="cert-name">'+cert.name+'</div>'+
+      '<div class="cert-desc">'+cert.desc+'</div>'+
+      '<div class="cert-topics">'+topics+'</div>'+
+      progressHtml+
+      '<div class="cert-footer">'+
+        '<span class="cert-qcount">'+(cert.total>0?cert.total+' questions':'In progress')+'</span>'+
+        '<span class="cert-cta">'+(cert.built?'Study Now &rarr;':'View Status &rarr;')+'</span>'+
+      '</div>'+
+    '</a>';
+  }
+  grid.innerHTML = html;
+}
+
+function togglePortalTheme(){var html=document.documentElement;var current=html.getAttribute('data-theme');var next=current==='dark'?'light':'dark';html.setAttribute('data-theme',next);localStorage.setItem('theme',next);document.getElementById('theme-toggle').textContent=next==='dark'?'🌙':'☀️';}
+(function(){var t=localStorage.getItem('theme')||'dark';document.getElementById('theme-toggle').textContent=t==='dark'?'🌙':'☀️';})();
+buildFilterBar();
+buildCards();

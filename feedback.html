@@ -6,33 +6,6 @@
 <title>Share Feedback – AWS Cert Study Portal</title>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<style>
-.fb-page{max-width:580px;margin:40px auto;padding:0 20px 60px}
-.fb-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;gap:10px}
-.fb-nav-title{font-size:0.85rem;font-weight:600;color:var(--text2)}
-.fb-header{text-align:center;margin-bottom:32px}
-.fb-icon{font-size:2.4rem;margin-bottom:12px;display:block;line-height:1}
-.fb-header h1{font-size:1.5rem;font-weight:800;margin:0 0 8px;letter-spacing:-0.4px}
-.fb-header p{color:var(--text2);font-size:0.88rem;margin:0;line-height:1.6}
-.fb-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:var(--shadow)}
-.fb-field{display:flex;flex-direction:column;gap:6px}
-.fb-field label{font-size:0.75rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.6px}
-.fb-field input,.fb-field select,.fb-field textarea{background:var(--bg);border:1.5px solid var(--border);color:var(--text);border-radius:8px;padding:10px 14px;font-size:0.9rem;font-family:inherit;transition:var(--transition);outline:none;width:100%}
-.fb-field input:focus,.fb-field select:focus,.fb-field textarea:focus{border-color:var(--accent)}
-.fb-field textarea{min-height:140px;resize:vertical;line-height:1.6}
-.fb-form{display:flex;flex-direction:column;gap:18px}
-.fb-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.fb-divider{height:1px;background:var(--border);margin:2px 0}
-.fb-actions{margin-top:6px}
-.fb-submit{width:100%;padding:13px;font-size:0.95rem;font-weight:700;border-radius:9px;cursor:pointer;border:none;background:var(--accent);color:#111;transition:var(--transition)}
-.fb-submit:hover:not(:disabled){background:var(--accent2)}
-.fb-submit:disabled{opacity:0.6;cursor:not-allowed}
-.fb-status{border-radius:9px;padding:12px 16px;font-size:0.85rem;font-weight:600;margin-top:14px;display:none}
-.fb-status.ok{background:rgba(56,161,105,0.1);border:1px solid rgba(56,161,105,0.35);color:var(--correct);display:block}
-.fb-status.err{background:rgba(229,62,62,0.1);border:1px solid rgba(229,62,62,0.35);color:var(--wrong);display:block}
-@media(max-width:520px){.fb-row{grid-template-columns:1fr}.fb-page{margin-top:24px;padding:0 12px 40px}.fb-card{padding:18px}}
-@media(max-width:420px){.fb-nav-title{display:none}}
-</style>
 <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body>
@@ -103,56 +76,6 @@
   </div>
 </div>
 
-<script>
-window.FEEDBACK_API_URL = '';
-window.FEEDBACK_API_TOKEN = '';
-
-function toggleTheme(){
-  var html=document.documentElement;
-  var next=(html.getAttribute('data-theme')==='dark')?'light':'dark';
-  html.setAttribute('data-theme',next);
-  localStorage.setItem('theme',next);
-  document.getElementById('theme-toggle').textContent=next==='dark'?'🌙':'☀️';
-}
-(function(){var t=localStorage.getItem('theme')||'dark';document.getElementById('theme-toggle').textContent=t==='dark'?'🌙':'☀️';})();
-
-function showStatus(kind, msg){
-  var el=document.getElementById('fb-status');
-  el.className='fb-status '+kind;
-  el.textContent=msg;
-  el.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-document.getElementById('feedback-form').addEventListener('submit', async function(e){
-  e.preventDefault();
-  if(!window.FEEDBACK_API_URL){
-    showStatus('err','Feedback API is not configured yet. Set window.FEEDBACK_API_URL in feedback.html.');
-    return;
-  }
-  var btn=document.getElementById('submit-btn');
-  btn.disabled=true; btn.textContent='Sending...';
-  var payload={
-    name:document.getElementById('name').value.trim(),
-    email:document.getElementById('email').value.trim(),
-    type:document.getElementById('type').value,
-    cert:document.getElementById('cert').value,
-    message:document.getElementById('message').value.trim(),
-    source:'aws-cert-study-portal',page:location.href,ua:navigator.userAgent
-  };
-  try{
-    var headers={'Content-Type':'application/json'};
-    if(window.FEEDBACK_API_TOKEN) headers['x-feedback-token']=window.FEEDBACK_API_TOKEN;
-    var res=await fetch(window.FEEDBACK_API_URL,{method:'POST',headers:headers,body:JSON.stringify(payload)});
-    var data=await res.json().catch(function(){return{};});
-    if(!res.ok) throw new Error(data.error||('HTTP '+res.status));
-    showStatus('ok','✓ Feedback sent. Thank you!');
-    document.getElementById('feedback-form').reset();
-  }catch(err){
-    showStatus('err','✗ Could not send: '+err.message);
-  }finally{
-    btn.disabled=false; btn.textContent='Send Feedback →';
-  }
-});
-</script>
+<script src="feedback.js"></script>
 </body>
 </html>

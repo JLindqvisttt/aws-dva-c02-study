@@ -423,3 +423,8 @@ buildStudyCards();
 populateTopics();
 updateHomeStats();
 initFlashcards();
+// Update exam sim description dynamically
+const _esd = document.getElementById('exam-sim-desc');
+if (_esd && typeof CERT_META !== 'undefined') {
+  _esd.innerHTML = CERT_META.examQuestions + ' questions &middot; ' + CERT_META.minutes + ' minute timer &middot; Feedback at end';
+}
