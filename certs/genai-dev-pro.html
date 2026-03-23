@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AWS GenAI-Dev-Pro Study Platform</title>
-<link rel="stylesheet" href="../style.css?v=20260323c">
+<link rel="stylesheet" href="../style.css?v=20260323e">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>:root{--cert-color:#f97316}</style>
 <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
@@ -15,8 +15,8 @@
   <div class="nav-top">
     <a class="nav-back" href="../index.html" title="All certifications">&#x2190; Portal</a>
     <span class="nav-title-cert">GenAI-Dev-Pro <span class="sub">GenAI Developer Professional</span></span>
-    <a class="btn btn-sm" href="../feedback.html" title="Share feedback" style="text-decoration:none;display:inline-flex;align-items:center;gap:5px">&#x1F4AC; Feedback</a>
-    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
+    <a class="btn btn-sm nav-feedback-link" href="../feedback.html" title="Share feedback">&#x1F4AC; Feedback</a>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle light and dark mode">🌙</button>
   </div>
   <div class="nav-tabs">
     <button class="nav-tab active" data-tab="home">&#x1F3E0; Home</button>
@@ -47,18 +47,18 @@
       <div class="stat-card"><div class="stat-val" id="stat-mastery">0%</div><div class="stat-lbl">Mastery</div></div>
     </div>
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <span style="font-weight:600">Progress</span>
-        <span id="stat-mastered-text" class="text-muted">0 mastered</span>
+      <div class="progress-head">
+        <span class="progress-title">Progress</span>
+        <span id="stat-mastered-text" class="text-muted">0 of 0 mastered</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="home-progress-fill" style="width:0%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" id="home-progress-fill"></div></div>
     </div>
     <div class="home-actions">
       <div class="action-card">
         <div class="action-emoji">&#x1F3AF;</div>
         <div class="action-title">Quick Quiz</div>
         <div class="action-desc">Random questions with immediate feedback</div>
-        <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <div class="quick-quiz-actions">
           <button class="btn btn-primary btn-sm" onclick="startQuickQuiz(10)">10 Qs</button>
           <button class="btn btn-primary btn-sm" onclick="startQuickQuiz(20)">20 Qs</button>
           <button class="btn btn-primary btn-sm" onclick="startQuickQuiz(30)">30 Qs</button>
@@ -78,7 +78,7 @@
         <div class="action-emoji">&#x26A0;&#xFE0F;</div>
         <div class="action-title">Weak Areas</div>
         <div class="action-desc">Topics where you've answered questions incorrectly</div>
-        <div id="weak-topics-list" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center"></div>
+        <div id="weak-topics-list" class="weak-topics-wrap"></div>
       </div>
     </div>
   </div>
@@ -121,15 +121,15 @@
           <div class="pill" data-group="filter" data-val="weak">&#x26A0; Weak Areas Only</div>
         </div>
       </div>
-      <button class="btn btn-primary mt-24" style="width:100%;padding:14px;font-size:1rem" onclick="startConfiguredQuiz()">Start Quiz &#x2192;</button>
+      <button class="btn btn-primary mt-24 quiz-start-btn" onclick="startConfiguredQuiz()">Start Quiz &#x2192;</button>
     </div>
-    <div id="quiz-active-screen" style="display:none"></div>
-    <div id="quiz-result-screen" style="display:none"></div>
+    <div id="quiz-active-screen" class="screen-hidden"></div>
+    <div id="quiz-result-screen" class="screen-hidden"></div>
   </div>
 
   <div id="tab-flash" class="tab-panel">
     <div class="flash-controls">
-      <h2 class="section-title" style="margin-bottom:0">Flashcards</h2>
+      <h2 class="section-title section-title-tight">Flashcards</h2>
       <select class="topic-select" id="flash-topic-filter" onchange="initFlashcards()">
         <option value="all">All Topics</option>
       </select>
@@ -149,7 +149,7 @@
     </div>
     <div class="flash-nav">
       <button class="btn" onclick="flashPrev()">&#x2190; Previous</button>
-      <span class="flash-counter" id="flash-counter">1 / ?</span>
+      <span class="flash-counter" id="flash-counter">0 / 0</span>
       <button class="btn" onclick="flashNext()">Next &#x2192;</button>
     </div>
   </div>

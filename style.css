@@ -52,6 +52,7 @@ nav{background:var(--card);border-bottom:1px solid var(--border);position:sticky
 .cert-page .nav-top .nav-title-cert{text-align:center}
 .cert-page .nav-top a[title="Share feedback"]{justify-self:end;width:auto}
 .cert-page .nav-top .theme-toggle{justify-self:end}
+.nav-feedback-link{text-decoration:none;display:inline-flex;align-items:center;gap:5px}
 .cert-page .service-name{color:var(--cert-color,var(--accent))}
 .cert-page .section-title .hl{color:var(--cert-color,var(--accent))}
 .cert-page .quiz-score{color:var(--cert-color,var(--accent))}
@@ -73,6 +74,7 @@ nav{background:var(--card);border-bottom:1px solid var(--border);position:sticky
 main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
+.screen-hidden{display:none}
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 .card+.card{margin-top:14px}
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
@@ -81,7 +83,9 @@ main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .stat-val{font-size:2rem;font-weight:800;color:var(--accent);letter-spacing:-1px}
 .stat-lbl{font-size:0.7rem;color:var(--text2);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px}
 .progress-bar{background:var(--card2);border-radius:999px;height:7px;overflow:hidden;margin:8px 0}
-.progress-fill{background:linear-gradient(90deg,var(--accent),var(--accent2));height:100%;border-radius:999px;transition:width 0.5s ease}
+.progress-fill{background:linear-gradient(90deg,var(--accent),var(--accent2));height:100%;width:0;border-radius:999px;transition:width 0.5s ease}
+.progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-title{font-weight:600}
 .home-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
 @media(max-width:480px){.home-actions{grid-template-columns:1fr}}
 .action-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px 18px;text-align:center;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow);border-top:3px solid var(--border)}
@@ -89,6 +93,8 @@ main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .action-emoji{font-size:1.8rem;margin-bottom:10px}
 .action-title{font-weight:700;font-size:0.9rem;margin-bottom:4px}
 .action-desc{font-size:0.78rem;color:var(--text2);line-height:1.5}
+.quick-quiz-actions{margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.weak-topics-wrap{margin-top:10px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
 .service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .service-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
 .service-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -105,7 +111,7 @@ main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .option-pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{background:var(--card2);border:1.5px solid var(--border);color:var(--text2);padding:6px 14px;border-radius:999px;cursor:pointer;font-size:0.8rem;font-weight:500;transition:var(--transition);user-select:none}
 .pill:hover{border-color:var(--accent);color:var(--text)}
-.pill.selected{background:var(--accent);border-color:var(--accent);color:#111;font-weight:700}
+.pill.selected{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
 .quiz-active{max-width:700px;margin:0 auto}
 .quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
 .quiz-progress-text{font-size:0.8rem;color:var(--text2);font-weight:500}
@@ -168,23 +174,23 @@ main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .topic-select:hover,.topic-select:focus{border-color:var(--accent);outline:none}
 h2.section-title{font-size:1.2rem;font-weight:700;margin-bottom:18px;letter-spacing:-0.3px}
 h2.section-title .hl{color:var(--accent)}
+.section-title-tight{margin-bottom:0}
 .mt-16{margin-top:16px}
 .mt-24{margin-top:24px}
 .text-muted{color:var(--text2);font-size:0.8rem}
 .badge-pill{background:rgba(240,150,42,0.12);color:var(--accent);padding:2px 9px;border-radius:999px;font-size:0.7rem;font-weight:700;display:inline-block;letter-spacing:0.3px;text-transform:uppercase}
 .btn{background:linear-gradient(180deg,color-mix(in srgb,var(--btn) 92%,#fff) 0%,var(--btn) 100%);border:1.5px solid var(--border);color:var(--text);padding:10px 16px;border-radius:var(--button-radius);cursor:pointer;font-size:0.82rem;font-weight:700;transition:var(--transition);display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
 .btn:hover{background:linear-gradient(180deg,color-mix(in srgb,var(--btn-hover) 86%,#fff) 0%,var(--btn-hover) 100%);border-color:var(--accent);transform:translateY(-1px);box-shadow:0 12px 24px rgba(0,0,0,0.16)}
-.btn-primary{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 86%,#fff) 0%,var(--accent) 100%);border-color:var(--accent);color:#111;font-weight:800}
+.btn-primary{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 86%,#fff) 0%,var(--accent) 100%);border-color:var(--accent);color:#fff;font-weight:800}
 .btn-primary:hover{background:var(--accent2);border-color:var(--accent2)}
 .btn-sm{padding:8px 13px;font-size:0.75rem;min-height:36px}
+.quiz-start-btn{width:100%;padding:14px;font-size:1rem}
 .weak-topic-tag{background:rgba(229,62,62,0.1);color:var(--wrong);border:1px solid rgba(229,62,62,0.25);padding:2px 9px;border-radius:999px;font-size:0.72rem;font-weight:700;white-space:nowrap}
 .weak-topic-none{color:var(--text2);font-size:0.75rem}
 
 /* -- Portal index page ----------------------------------- */
-.portal-hero{text-align:center;padding:52px 24px 36px;position:relative;overflow:hidden;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 14%,var(--bg)) 0%,var(--bg) 100%)}
-.portal-hero::before{content:'';position:absolute;top:-80px;left:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 20%,transparent) 0%,transparent 70%);pointer-events:none}
-.portal-hero::after{content:'';position:absolute;right:-100px;bottom:-120px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 12%,transparent) 0%,transparent 72%);pointer-events:none}
-.portal-hero .portal-actions{position:absolute;top:16px;right:20px;display:flex;align-items:center;gap:8px;z-index:10}
+.portal-hero{text-align:center;padding:56px 20px 32px;position:relative;overflow:hidden;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 14%,var(--bg)) 0%,var(--bg) 100%)}
+.portal-hero .portal-actions{position:absolute;top:5px;right:16px;display:flex;align-items:center;gap:10px;z-index:10}
 .portal-hero h1{font-size:2rem;font-weight:900;margin:0 0 10px;letter-spacing:-0.8px;position:relative;z-index:1}
 .portal-hero h1 span{color:var(--accent)}
 .portal-hero p{color:var(--text2);font-size:1rem;margin:0 auto;max-width:720px;position:relative;z-index:1;line-height:1.65}
@@ -229,7 +235,7 @@ h2.section-title .hl{color:var(--accent)}
 .level-pill[data-level="Professional"].active{background:#f97316;border-color:#f97316}
 .level-pill[data-level="Specialty"].active{background:#ec4899;border-color:#ec4899}
 .level-count{font-size:0.72rem;opacity:0.75;font-weight:500;margin-left:3px}
-.portal-feedback-btn{font-size:0.8rem;font-weight:700;padding:10px 16px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border-radius:var(--button-radius);border:1.5px solid var(--border);color:var(--text2);transition:var(--transition);background:linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,#fff) 0%,var(--card) 100%);box-shadow:0 8px 20px rgba(0,0,0,0.12);min-height:42px}
+.portal-feedback-btn{font-size:0.75rem;font-weight:700;padding:8px 13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border-radius:var(--button-radius);border:1.5px solid var(--border);color:var(--text2);transition:var(--transition);background:linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,#fff) 0%,var(--card) 100%);box-shadow:0 8px 20px rgba(0,0,0,0.12);min-height:36px}
 .portal-feedback-btn:hover{border-color:var(--text2);color:var(--text);transform:translateY(-1px);box-shadow:0 12px 24px rgba(0,0,0,0.16)}
 .cert-card-badge-img{position:absolute;top:14px;right:14px;width:48px;height:48px;object-fit:contain;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--cert-color) 18%,var(--card2)) 0%,color-mix(in srgb,var(--cert-color) 8%,var(--card2)) 100%);padding:6px;transition:transform 0.2s ease,opacity 0.2s ease,box-shadow 0.2s ease;z-index:1;opacity:0.72;box-shadow:0 10px 22px color-mix(in srgb,var(--cert-color) 16%,transparent)}
 .cert-card:hover .cert-card-badge-img{transform:scale(1.07) translateY(-1px);opacity:1;box-shadow:0 14px 26px color-mix(in srgb,var(--cert-color) 24%,transparent)}
@@ -251,8 +257,8 @@ h2.section-title .hl{color:var(--accent)}
 /* -- Feedback page --------------------------------------- */
 .fb-page{max-width:620px;margin:40px auto;padding:0 20px 60px;position:relative}
 .fb-page::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:min(88vw,620px);height:260px;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 16%,transparent) 0%,transparent 72%);pointer-events:none;z-index:0}
-.fb-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;gap:10px}
-.fb-nav-title{font-size:0.85rem;font-weight:600;color:var(--text2)}
+.fb-nav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 16px;gap:10px;min-height:48px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.fb-nav-title{font-size:0.85rem;font-weight:600;color:var(--text2);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fb-header{text-align:center;margin-bottom:20px;position:relative;z-index:1;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 12%,var(--card)) 0%,var(--card) 100%);border:1px solid color-mix(in srgb,var(--accent) 20%,var(--border));border-radius:22px;padding:28px 24px;box-shadow:0 18px 42px rgba(0,0,0,0.14)}
 .fb-icon{font-size:2.1rem;margin:0 auto 14px;display:grid;place-items:center;line-height:1;width:58px;height:58px;border-radius:18px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 72%,#fff) 0%,var(--accent) 100%);color:#111;box-shadow:0 14px 28px rgba(0,0,0,0.16)}
 .fb-header h1{font-size:1.7rem;font-weight:900;margin:0 0 10px;letter-spacing:-0.5px}
@@ -292,8 +298,8 @@ h2.section-title .hl{color:var(--accent)}
   .question-card{padding:16px}
   .result-card{padding:24px 16px}
   .flash-face{padding:20px}
-  .portal-hero{padding:72px 14px 18px}
-  .portal-hero .portal-actions{top:12px;right:12px;left:12px;justify-content:flex-end;gap:6px}
+  .portal-hero{padding:56px 12px 24px}
+  .portal-hero .portal-actions{top:4px;right:12px;left:12px;justify-content:flex-end;gap:8px}
   .portal-hero h1{font-size:1.62rem;line-height:1.1;margin-bottom:12px}
   .portal-hero p{font-size:0.92rem;line-height:1.6;max-width:34ch}
   .level-filter-bar{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding:10px 12px 16px;gap:8px}
@@ -341,6 +347,7 @@ h2.section-title .hl{color:var(--accent)}
   .flash-controls{gap:8px;margin-bottom:16px}
   .flash-q,.flash-a{font-size:0.86rem;line-height:1.6}
   .fb-row{grid-template-columns:1fr}
+  .fb-nav{padding:0 12px;min-height:44px;gap:8px}
   .fb-page{margin-top:24px;padding:0 12px 40px}
   .fb-header{padding:24px 16px 20px;border-radius:18px;margin-bottom:16px}
   .fb-icon{width:52px;height:52px;border-radius:16px;font-size:1.85rem;margin-bottom:12px}
