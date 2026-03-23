@@ -28,11 +28,11 @@ nav{background:transparent;border-bottom-color:transparent;box-shadow:none}
 .cert-name{font-size:0.95rem;color:var(--text2);margin-bottom:10px}
 .cert-desc{font-size:0.85rem;color:var(--text2);line-height:1.5;margin-bottom:14px}
 .cert-topics{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
-.cert-topic{font-size:0.72rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2px 7px;color:var(--text2)}
+.cert-topic{font-size:0.72rem;background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:2px 9px;color:var(--text2)}
 .cert-footer{display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:10px}
 .cert-qcount{font-size:0.8rem;color:var(--text2)}
-.cert-cta{background:var(--cert-color);color:#fff;border-radius:6px;padding:7px 16px;font-size:0.85rem;font-weight:600;white-space:nowrap;display:inline-block;transition:var(--transition)}
-.cert-card:hover .cert-cta{opacity:.85}
+.cert-cta{background:var(--cert-color);color:#fff;border-radius:999px;padding:7px 18px;font-size:0.85rem;font-weight:600;white-space:nowrap;display:inline-block;transition:var(--transition);box-shadow:0 2px 8px color-mix(in srgb,var(--cert-color) 40%,transparent)}
+.cert-card:hover .cert-cta{filter:brightness(0.88)}
 .cert-progress-wrap{margin-bottom:12px}
 .prog-ring-row{display:flex;align-items:center;gap:14px}
 .prog-ring-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;flex-shrink:0}
@@ -44,19 +44,21 @@ nav{background:transparent;border-bottom-color:transparent;box-shadow:none}
 .prog-ring-labels{display:flex;flex-direction:column;gap:3px}
 .prog-ring-count{font-size:0.82rem;font-weight:700;color:var(--text)}
 .prog-ring-sub{font-size:0.7rem;color:var(--text2)}
-.cert-card.coming-soon{opacity:.65}
+.cert-card.coming-soon{filter:grayscale(0.3);opacity:.8}
+.cert-card.coming-soon:hover{filter:grayscale(0);opacity:1}
 :root .cert-card{background:color-mix(in srgb, var(--cert-color) 5%, var(--card))}
 [data-theme="light"] .cert-card{background:var(--card)}
-.coming-soon-badge{position:absolute;top:14px;right:14px;font-size:0.7rem;font-weight:700;background:var(--border);color:var(--text2);padding:2px 8px;border-radius:20px}
+.coming-soon-badge{position:absolute;top:14px;left:14px;font-size:0.68rem;font-weight:700;background:color-mix(in srgb,var(--cert-color) 12%,var(--card2));color:var(--text2);padding:3px 10px;border-radius:999px;backdrop-filter:blur(4px);letter-spacing:0.02em;z-index:2}
+.cert-card.coming-soon .cert-badge{margin-top:22px}
 .level-filter-bar{display:flex;justify-content:center;gap:8px;padding:16px 20px 22px;flex-wrap:wrap}
 .level-pill{background:var(--card);border:1.5px solid var(--border);color:var(--text2);padding:6px 18px;border-radius:999px;cursor:pointer;font-size:0.82rem;font-weight:600;transition:var(--transition);white-space:nowrap}
 .level-pill:hover{border-color:var(--accent);color:var(--text)}
-.level-pill.active{background:var(--accent);border-color:var(--accent);color:#111}
+.level-pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .level-count{font-size:0.72rem;opacity:0.75;font-weight:500;margin-left:3px}
 .portal-feedback-btn{font-size:0.8rem;font-weight:600;padding:7px 16px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border-radius:999px;border:1.5px solid var(--border);color:var(--text2);transition:var(--transition);background:transparent}
 .portal-feedback-btn:hover{border-color:var(--text2);color:var(--text)}
-.cert-card-badge-img{position:absolute;top:12px;right:12px;width:50px;height:50px;object-fit:contain;border-radius:10px;background:color-mix(in srgb,var(--cert-color) 18%,var(--card2));padding:6px;transition:transform 0.2s ease;z-index:1}
-.cert-card:hover .cert-card-badge-img{transform:scale(1.07)}
+.cert-card-badge-img{position:absolute;top:12px;right:12px;width:44px;height:44px;object-fit:contain;border-radius:10px;background:color-mix(in srgb,var(--cert-color) 16%,var(--card2));padding:5px;transition:transform 0.2s ease,opacity 0.2s ease;z-index:1;opacity:0.65}
+.cert-card:hover .cert-card-badge-img{transform:scale(1.07);opacity:1}
 @media(max-width:640px){
   .portal-hero{padding:28px 12px 10px}
   .portal-hero h1{font-size:1.6rem}
@@ -66,10 +68,13 @@ nav{background:transparent;border-bottom-color:transparent;box-shadow:none}
   .cert-grid{grid-template-columns:1fr;gap:12px;padding:0 12px 30px}
   .cert-card{padding:16px}
   .cert-code{font-size:1.2rem}
-  .cert-card-badge-img{width:40px;height:40px}
+  .cert-card-badge-img{width:36px;height:36px}
   .prog-ring-wrap,.prog-ring{width:44px;height:44px}
   .cert-footer{flex-wrap:wrap}
 }
+.portal-footer{text-align:center;padding:24px 20px 32px;color:var(--text2);font-size:0.75rem;letter-spacing:0.02em}
+.portal-footer a{color:var(--text2);text-decoration:none;transition:var(--transition)}
+.portal-footer a:hover{color:var(--text)}
 </style>
 <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
@@ -90,6 +95,7 @@ nav{background:transparent;border-bottom-color:transparent;box-shadow:none}
 </div>
 <div class="level-filter-bar" id="level-filter-bar"></div>
 <div class="cert-grid" id="cert-grid"></div>
+<footer class="portal-footer">Built for learning &mdash; not affiliated with Amazon Web Services</footer>
 <script>
 const BD='https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/certification/approved/images/certification-badges/';
 const CERTS = [
@@ -141,7 +147,8 @@ function buildCards(){
     var topics=cert.topics.map(function(t){return '<span class="cert-topic">'+t+'</span>';}).join('');
     var C=106.81;var progressHtml=cert.built?('<div class="cert-progress-wrap"><div class="prog-ring-row"><div class="prog-ring-wrap"><svg class="prog-ring" width="52" height="52" viewBox="0 0 52 52"><circle class="prog-ring-bg" cx="26" cy="26" r="17"/><circle class="prog-ring-fill" cx="26" cy="26" r="17" style="stroke:'+cert.color+';stroke-dasharray:'+C+';stroke-dashoffset:'+(C*(1-pct/100)).toFixed(2)+'"/></svg><div class="prog-ring-inner"><span class="prog-ring-pct">'+pct+'%</span></div></div><div class="prog-ring-labels"><span class="prog-ring-count">'+prog.mastered+' / '+cert.total+'</span><span class="prog-ring-sub">questions mastered</span></div></div></div>'):'';
   html+='<a class="cert-card'+(cert.built?'':' coming-soon')+'" href="'+cert.href+'" style="--cert-color:'+cert.color+'">'+ 
-      (!cert.built?'<span class="coming-soon-badge">Coming Soon</span>':'<img class="cert-card-badge-img" src="'+cert.badge+'" alt="'+cert.code+' badge" loading="lazy">')+ 
+      (!cert.built?'<span class="coming-soon-badge">Coming Soon</span>':'')+
+      '<img class="cert-card-badge-img" src="'+cert.badge+'" alt="'+cert.code+' badge" loading="lazy">'+ 
       '<div class="cert-badge">'+cert.level+'</div>'+
       '<div class="cert-code">'+cert.code+'</div>'+
       '<div class="cert-name">'+cert.name+'</div>'+
