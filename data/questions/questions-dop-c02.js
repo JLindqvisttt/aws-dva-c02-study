@@ -22,7 +22,7 @@ const TOPIC_RULES = [
   [/ci\/cd|pipeline|codebuild|codedeploy|codepipeline|artifact|release/i, "CI/CD"],
   [/observability|monitoring|cloudwatch|log|trace|x-ray|alarm|slo/i, "Observability"],
   [/reliability|rollback|canary|blue\/green|autoscaling|failover/i, "Reliability"],
-  [/security|automation|secrets|iam|policy|compliance|guardrail/i, "Security Automation"]
+  [/security|automation|secrets|iam|policy|compliance|guardrail/i, "Security Automation"],
 ];
 
 const QUESTIONS = [
@@ -40,34 +40,34 @@ const QUESTIONS = [
   {
     "q": "A release process needs immutable artifacts and cryptographic verification before production. Which approach is best?",
     "options": [
-      "Rebuild artifacts in each environment",
       "Sign build artifacts and verify signatures at promotion gates",
       "Store artifacts on developer laptops",
-      "Skip provenance checks to improve speed"
+      "Skip provenance checks to improve speed",
+      "Rebuild artifacts in each environment"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A company experiences frequent deployment failures due to environment drift. What should be done first?",
     "options": [
-      "Increase deployment timeout",
-      "Adopt infrastructure as code with deterministic environment provisioning",
       "Disable pre-deployment checks",
-      "Allow manual hotfixes only"
+      "Allow manual hotfixes only",
+      "Increase deployment timeout",
+      "Adopt infrastructure as code with deterministic environment provisioning"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A platform team needs manual approval only for high-risk production changes. Which design works best?",
     "options": [
+      "Separate production pipeline with no tests",
       "Manual approval on every commit",
       "Risk-based conditional approval stage with automated change classification",
-      "No approvals at all",
-      "Separate production pipeline with no tests"
+      "No approvals at all"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -84,34 +84,34 @@ const QUESTIONS = [
   {
     "q": "A team wants to reduce lead time by parallelizing tests without lowering confidence. What should they do?",
     "options": [
-      "Run only unit tests",
       "Split test suites by risk and run in parallel with quality thresholds",
       "Remove integration tests",
-      "Run all tests post-production"
+      "Run all tests post-production",
+      "Run only unit tests"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A deployment framework must support safe database schema evolution across versions. Which practice is best?",
     "options": [
-      "Breaking schema changes first",
-      "Backward-compatible expand/contract migration pattern",
       "Manual DB edits in production",
-      "No schema versioning"
+      "No schema versioning",
+      "Breaking schema changes first",
+      "Backward-compatible expand/contract migration pattern"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A company needs centralized pipeline governance but autonomous team releases. Which model is best?",
     "options": [
+      "Release windows only once per month",
       "One monolithic pipeline for every team",
       "Golden pipeline templates with team-owned repositories and controls",
-      "No standardization",
-      "Release windows only once per month"
+      "No standardization"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -128,34 +128,34 @@ const QUESTIONS = [
   {
     "q": "A team wants to speed deployment by caching dependencies, but builds must remain reproducible. What is best?",
     "options": [
-      "Share mutable cache across all branches",
       "Versioned dependency caches with lockfiles and cache invalidation rules",
       "Disable lockfiles",
-      "Download latest dependencies each run"
+      "Download latest dependencies each run",
+      "Share mutable cache across all branches"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "An application has frequent rollback events due to config drift. Which control reduces this risk most?",
     "options": [
-      "Hardcode environment variables in code",
-      "Centralized configuration management with versioning and promotion flow",
       "Manual console edits",
-      "Store config in CI job history"
+      "Store config in CI job history",
+      "Hardcode environment variables in code",
+      "Centralized configuration management with versioning and promotion flow"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A pipeline must deploy to private subnets without opening inbound access. Which approach is best?",
     "options": [
+      "Temporarily open SSH from internet",
       "Public bastion with shared credentials",
       "Use deployment agents/roles with VPC endpoints and outbound-only control channels",
-      "Disable network ACLs",
-      "Temporarily open SSH from internet"
+      "Disable network ACLs"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -172,34 +172,34 @@ const QUESTIONS = [
   {
     "q": "A platform team wants to prevent accidental production deploys from feature branches. What should be implemented?",
     "options": [
-      "Convention-based warnings",
       "Branch protections and explicit deployment policy checks in pipeline",
       "Disable CI for feature branches",
-      "Separate git server per team"
+      "Separate git server per team",
+      "Convention-based warnings"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A release includes risky infrastructure changes and new application code. Which sequence is safest?",
     "options": [
-      "Deploy both at once",
-      "Provision infrastructure first, verify, then progressive app rollout",
       "Deploy app first then infra",
-      "Skip verification to shorten downtime"
+      "Skip verification to shorten downtime",
+      "Deploy both at once",
+      "Provision infrastructure first, verify, then progressive app rollout"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "An operations team wants to reduce alert fatigue from noisy alarms. Which action should be prioritized?",
     "options": [
+      "Route all alerts to one email inbox",
       "Create more alarms for every metric",
       "Define SLO-based alerts with deduplication and actionable thresholds",
-      "Disable all warning alarms",
-      "Route all alerts to one email inbox"
+      "Disable all warning alarms"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Observability"
   },
   {
@@ -216,34 +216,34 @@ const QUESTIONS = [
   {
     "q": "A company wants a single dashboard across many AWS accounts and Regions. Which approach is most maintainable?",
     "options": [
-      "Manual dashboard copies per account",
       "Cross-account observability with centralized metrics/log ingestion",
       "SSH and tail logs from instances",
-      "One dashboard per service owner only"
+      "One dashboard per service owner only",
+      "Manual dashboard copies per account"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Observability"
   },
   {
     "q": "A critical API has intermittent latency spikes. What should be done first during investigation?",
     "options": [
-      "Scale all components immediately",
-      "Correlate traces, logs, and dependency metrics for the affected path",
       "Restart production services",
-      "Disable request logging"
+      "Disable request logging",
+      "Scale all components immediately",
+      "Correlate traces, logs, and dependency metrics for the affected path"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Observability"
   },
   {
     "q": "A team needs near real-time anomaly detection for business and technical KPIs. Which pattern is best?",
     "options": [
+      "Static dashboards without alerts",
       "Daily batch reporting only",
       "Streaming metrics with anomaly detection and incident hooks",
-      "Weekly manual review",
-      "Static dashboards without alerts"
+      "Weekly manual review"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Observability"
   },
   {
@@ -260,34 +260,34 @@ const QUESTIONS = [
   {
     "q": "An incident response team needs faster triage from alerts. What should be added to alarms?",
     "options": [
-      "Longer names",
       "Runbook links, ownership metadata, and context-rich descriptions",
       "Random tags",
-      "Extra SNS topics only"
+      "Extra SNS topics only",
+      "Longer names"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Observability"
   },
   {
     "q": "A service emits high-cardinality metrics that drive up cost. What is the best optimization?",
     "options": [
-      "Stop metric collection",
-      "Review dimensions and aggregate where high-cardinality adds limited value",
       "Increase retention indefinitely",
-      "Duplicate metrics across namespaces"
+      "Duplicate metrics across namespaces",
+      "Stop metric collection",
+      "Review dimensions and aggregate where high-cardinality adds limited value"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Observability"
   },
   {
     "q": "A team needs long-term queryable logs for compliance and troubleshooting. Which architecture fits best?",
     "options": [
+      "Export logs to local desktops",
       "Store logs only on ephemeral volumes",
       "Tiered log storage with lifecycle to cost-efficient analytics",
-      "Delete logs after 24 hours",
-      "Export logs to local desktops"
+      "Delete logs after 24 hours"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Observability"
   },
   {
@@ -304,34 +304,34 @@ const QUESTIONS = [
   {
     "q": "A team wants to detect silent failures in scheduled jobs. What should be implemented?",
     "options": [
-      "Only failure logs",
       "Heartbeat metrics and missing-signal alarms",
       "Lower cron frequency",
-      "Disable retries"
+      "Disable retries",
+      "Only failure logs"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Observability"
   },
   {
     "q": "A company needs to measure customer impact during incidents, not only system metrics. What is best?",
     "options": [
-      "Monitor server CPU only",
-      "Track user-journey SLIs and error budgets",
       "Count deploys per week",
-      "Use log volume as availability metric"
+      "Use log volume as availability metric",
+      "Monitor server CPU only",
+      "Track user-journey SLIs and error budgets"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Observability"
   },
   {
     "q": "A central team wants safer production troubleshooting. Which logging practice should be avoided?",
     "options": [
+      "Redaction controls",
       "Structured logs with request IDs",
       "Logging secrets and personal data in plaintext",
-      "Consistent log schema",
-      "Redaction controls"
+      "Consistent log schema"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Observability"
   },
   {
@@ -348,34 +348,34 @@ const QUESTIONS = [
   {
     "q": "A team wants to correlate incidents with release events automatically. Which integration is best?",
     "options": [
-      "Manual spreadsheet tracking",
       "Emit deployment markers and annotate dashboards/alerts",
       "Disable deployment notifications",
-      "Use only calendar invites"
+      "Use only calendar invites",
+      "Manual spreadsheet tracking"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Observability"
   },
   {
     "q": "A critical API requires zero-impact releases under variable traffic. Which deployment strategy is best?",
     "options": [
-      "All-at-once updates",
-      "Blue/green or canary with automatic health-based rollback",
       "Manual restart during peak",
-      "Single server deployment"
+      "Single server deployment",
+      "All-at-once updates",
+      "Blue/green or canary with automatic health-based rollback"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Reliability"
   },
   {
     "q": "A team needs to validate disaster recovery readiness continuously. What should they implement?",
     "options": [
+      "Document-only DR plan",
       "Annual tabletop only",
       "Automated DR game days with measurable RTO/RPO outcomes",
-      "Disable failover tests in production-like environments",
-      "Document-only DR plan"
+      "Disable failover tests in production-like environments"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Reliability"
   },
   {
@@ -392,34 +392,34 @@ const QUESTIONS = [
   {
     "q": "A stateful service needs resilience against AZ failure. Which architecture is most appropriate?",
     "options": [
-      "Single-AZ persistent store",
       "Multi-AZ data replication with automatic failover",
       "Nightly backups only",
-      "Manual snapshot restore"
+      "Manual snapshot restore",
+      "Single-AZ persistent store"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Reliability"
   },
   {
     "q": "A team wants to reduce incident blast radius from bad deploys. Which approach works best?",
     "options": [
-      "Deploy globally at once",
-      "Phased regional rollout with stop conditions and rollback hooks",
       "Disable alarms during deploy",
-      "Use one shared account for all stages"
+      "Use one shared account for all stages",
+      "Deploy globally at once",
+      "Phased regional rollout with stop conditions and rollback hooks"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Reliability"
   },
   {
     "q": "A service is overprovisioned for peak but idle most hours. Which reliability-safe optimization is best?",
     "options": [
+      "Spot instances for critical baseline with no fallback",
       "Disable autoscaling",
       "Use target tracking autoscaling with tested min capacity floors",
-      "Single large instance only",
-      "Spot instances for critical baseline with no fallback"
+      "Single large instance only"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Reliability"
   },
   {
@@ -436,34 +436,34 @@ const QUESTIONS = [
   {
     "q": "A team needs confidence that rollback will succeed under load. What should they do?",
     "options": [
-      "Trust theoretical runbooks",
       "Continuously test rollback paths in production-like traffic scenarios",
       "Rollback only in emergencies",
-      "Avoid release metadata"
+      "Avoid release metadata",
+      "Trust theoretical runbooks"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Reliability"
   },
   {
     "q": "An event-driven system needs protection against poison messages. Which pattern is best?",
     "options": [
-      "Infinite retries",
-      "Retry policy with DLQ and quarantine/inspection workflow",
       "Drop failed messages silently",
-      "Pause all consumers permanently"
+      "Pause all consumers permanently",
+      "Infinite retries",
+      "Retry policy with DLQ and quarantine/inspection workflow"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Reliability"
   },
   {
     "q": "A team wants resilience against dependency outages in upstream services. Which mechanism is best?",
     "options": [
+      "Disable caching",
       "Increase timeout everywhere",
       "Circuit breakers with graceful degradation and fallback responses",
-      "Synchronous retries only",
-      "Disable caching"
+      "Synchronous retries only"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Reliability"
   },
   {
@@ -480,34 +480,34 @@ const QUESTIONS = [
   {
     "q": "An architecture review finds a single shared dependency that can fail all tenants. What should be done?",
     "options": [
-      "Increase instance size",
       "Remove single points of failure with isolation boundaries and redundancy",
       "Add more logging only",
-      "Run in one AZ for consistency"
+      "Run in one AZ for consistency",
+      "Increase instance size"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Reliability"
   },
   {
     "q": "A team needs controlled rollback of infrastructure changes. Which capability is most important?",
     "options": [
-      "Manual console edits",
-      "Versioned IaC with stack policy and automated drift detection",
       "One shared admin credential",
-      "No change set previews"
+      "No change set previews",
+      "Manual console edits",
+      "Versioned IaC with stack policy and automated drift detection"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Reliability"
   },
   {
     "q": "A latency-sensitive service wants high availability with minimal failover impact. Which approach is best?",
     "options": [
+      "One Region only",
       "Warm standby tested yearly",
       "Active-active routing with health checks and state replication",
-      "Cold backup on tape",
-      "One Region only"
+      "Cold backup on tape"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Reliability"
   },
   {
@@ -524,34 +524,34 @@ const QUESTIONS = [
   {
     "q": "A company wants to prevent secrets from being exposed in CI logs and build artifacts. Which control is most effective?",
     "options": [
-      "Store secrets in environment variables in plaintext",
       "Use secrets manager integration with masked outputs and short-lived credentials",
       "Commit encrypted secrets with shared key in repo",
-      "Email secrets to release managers"
+      "Email secrets to release managers",
+      "Store secrets in environment variables in plaintext"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Security Automation"
   },
   {
     "q": "A security team needs mandatory vulnerability scans before production deployment. Which pipeline pattern is best?",
     "options": [
-      "Run scans after deployment",
-      "Add blocking security scan stages with severity-based policy gates",
       "Manual scans once per quarter",
-      "Skip scan for hotfixes"
+      "Skip scan for hotfixes",
+      "Run scans after deployment",
+      "Add blocking security scan stages with severity-based policy gates"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Security Automation"
   },
   {
     "q": "A team must enforce least privilege for deployment roles across accounts. What is best?",
     "options": [
+      "Shared static credentials",
       "AdministratorAccess everywhere",
       "Scoped IAM roles with permission boundaries and session controls",
-      "Long-lived root keys",
-      "Shared static credentials"
+      "Long-lived root keys"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Security Automation"
   },
   {
@@ -568,34 +568,34 @@ const QUESTIONS = [
   {
     "q": "A platform team wants to block deployment of unapproved container images. Which control is best?",
     "options": [
-      "Naming conventions only",
       "Admission/policy checks validating trusted registry and signatures",
       "Post-deployment warning emails",
-      "Manual review after incident"
+      "Manual review after incident",
+      "Naming conventions only"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Security Automation"
   },
   {
     "q": "A company needs automatic key rotation for application secrets without code changes. Which design helps most?",
     "options": [
-      "Hardcoded secrets in config files",
-      "Managed secrets rotation with runtime retrieval",
       "Quarterly manual key updates",
-      "Store secrets in build artifacts"
+      "Store secrets in build artifacts",
+      "Hardcoded secrets in config files",
+      "Managed secrets rotation with runtime retrieval"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Security Automation"
   },
   {
     "q": "A release process must ensure dependencies have no critical CVEs. Which workflow is best?",
     "options": [
+      "Manual package reviews only",
       "Ignore transitive dependencies",
       "Software composition analysis with policy gate and approved exception path",
-      "Scan only production branches monthly",
-      "Manual package reviews only"
+      "Scan only production branches monthly"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Security Automation"
   },
   {
@@ -612,34 +612,34 @@ const QUESTIONS = [
   {
     "q": "A team must prove production artifacts were built from approved source. Which capability is key?",
     "options": [
-      "Manual changelog edits",
       "Artifact provenance and attestations linked to signed commits",
       "Release notes in spreadsheets",
-      "Random sampling"
+      "Random sampling",
+      "Manual changelog edits"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Security Automation"
   },
   {
     "q": "A company wants automatic response to high-risk IAM changes. Which pattern is best?",
     "options": [
-      "Weekly manual audits",
-      "Event-driven detection with immediate rollback/quarantine workflow",
       "Disable IAM activity logs",
-      "Open support ticket after incidents"
+      "Open support ticket after incidents",
+      "Weekly manual audits",
+      "Event-driven detection with immediate rollback/quarantine workflow"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Security Automation"
   },
   {
     "q": "A platform team needs policy checks for infrastructure templates before merge. What should be used?",
     "options": [
+      "Skip checks for trusted contributors",
       "Manual linting only",
       "Policy-as-code static checks integrated into PR pipeline",
-      "Post-production drift reports only",
-      "Skip checks for trusted contributors"
+      "Post-production drift reports only"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Security Automation"
   },
   {
@@ -656,34 +656,34 @@ const QUESTIONS = [
   {
     "q": "A team needs secure temporary access for incident remediation without static credentials. Which method is best?",
     "options": [
-      "Shared emergency user account",
       "Federated just-in-time role assumption with short session duration",
       "Permanent admin API keys",
-      "Disable MFA for responders"
+      "Disable MFA for responders",
+      "Shared emergency user account"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Security Automation"
   },
   {
     "q": "A CI pipeline publishes logs to centralized storage; auditors require PII protection. What should be implemented?",
     "options": [
-      "Store logs unfiltered",
-      "Log redaction/tokenization and access controls with least privilege",
       "Delete all logs after deploy",
-      "Expose logs publicly for transparency"
+      "Expose logs publicly for transparency",
+      "Store logs unfiltered",
+      "Log redaction/tokenization and access controls with least privilege"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Security Automation"
   },
   {
     "q": "A team needs continuous compliance reporting with minimal manual work. Which architecture is best?",
     "options": [
+      "One-time audit before launch",
       "Spreadsheet-based monthly review",
       "Automated control evaluation, aggregation dashboard, and evidence retention",
-      "Penetration test only",
-      "One-time audit before launch"
+      "Penetration test only"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Security Automation"
   },
   {
@@ -700,34 +700,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in automated software delivery with quality gates and progressive deployment strategies. for the CI/CD domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A regulated workload depends on strong automated software delivery with quality gates and progressive deployment strategies. controls in the CI/CD domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A platform team needs scalable automated software delivery with quality gates and progressive deployment strategies. practices for the CI/CD domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -744,34 +744,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around automated software delivery with quality gates and progressive deployment strategies. in the CI/CD domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "The DOP-C02 blueprint for CI/CD needs better resilience around automated software delivery with quality gates and progressive deployment strategies.. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A team cannot prove ownership or accountability for automated software delivery with quality gates and progressive deployment strategies. in the CI/CD domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -788,34 +788,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that automated software delivery with quality gates and progressive deployment strategies. decisions in the CI/CD domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A team needs better observability for automated software delivery with quality gates and progressive deployment strategies. in the CI/CD domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A postmortem shows that weak automated software delivery with quality gates and progressive deployment strategies. practices in the CI/CD domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -832,34 +832,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in pipeline architecture and release safety patterns for the CI/CD domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A regulated workload depends on strong pipeline architecture and release safety patterns controls in the CI/CD domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A platform team needs scalable pipeline architecture and release safety patterns practices for the CI/CD domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -876,34 +876,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around pipeline architecture and release safety patterns in the CI/CD domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "The DOP-C02 blueprint for CI/CD needs better resilience around pipeline architecture and release safety patterns. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A team cannot prove ownership or accountability for pipeline architecture and release safety patterns in the CI/CD domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -920,34 +920,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that pipeline architecture and release safety patterns decisions in the CI/CD domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A team needs better observability for pipeline architecture and release safety patterns in the CI/CD domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A postmortem shows that weak pipeline architecture and release safety patterns practices in the CI/CD domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -964,34 +964,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in artifact security, provenance, and promotion strategy for the CI/CD domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A regulated workload depends on strong artifact security, provenance, and promotion strategy controls in the CI/CD domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A platform team needs scalable artifact security, provenance, and promotion strategy practices for the CI/CD domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -1008,34 +1008,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around artifact security, provenance, and promotion strategy in the CI/CD domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "The DOP-C02 blueprint for CI/CD needs better resilience around artifact security, provenance, and promotion strategy. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A team cannot prove ownership or accountability for artifact security, provenance, and promotion strategy in the CI/CD domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -1052,34 +1052,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that artifact security, provenance, and promotion strategy decisions in the CI/CD domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A team needs better observability for artifact security, provenance, and promotion strategy in the CI/CD domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A postmortem shows that weak artifact security, provenance, and promotion strategy practices in the CI/CD domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   },
   {
@@ -1096,34 +1096,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in automated tests and deployment approvals for the CI/CD domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "CI/CD"
   },
   {
     "q": "A regulated workload depends on strong automated tests and deployment approvals controls in the CI/CD domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "CI/CD"
   },
   {
     "q": "A platform team needs scalable automated tests and deployment approvals practices for the CI/CD domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CI/CD"
   }
 ];

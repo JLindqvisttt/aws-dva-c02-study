@@ -22,7 +22,7 @@ const TOPIC_RULES = [
   [/enterprise|landing zone|multi-account|shared services|transit gateway/i, "Enterprise Design"],
   [/migrat|cutover|rehost|replatform|refactor|datasync|dms/i, "Migration"],
   [/governance|scp|config|audit|compliance|control tower|organization/i, "Governance"],
-  [/cost|rightsiz|savings|budget|optimization|finops/i, "Cost Optimization"]
+  [/cost|rightsiz|savings|budget|optimization|finops/i, "Cost Optimization"],
 ];
 
 const QUESTIONS = [
@@ -40,34 +40,34 @@ const QUESTIONS = [
   {
     "q": "An enterprise needs deterministic DNS resolution between on-premises and many AWS accounts. What is the most maintainable pattern?",
     "options": [
-      "Deploy Route 53 Resolver inbound/outbound endpoints in each account manually",
       "Use a centralized DNS account with Route 53 Resolver rules shared via AWS RAM",
       "Use hosts files on all EC2 instances",
-      "Expose every private zone publicly"
+      "Expose every private zone publicly",
+      "Deploy Route 53 Resolver inbound/outbound endpoints in each account manually"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A company has strict RTO requirements for a tier-1 platform spanning multiple accounts. Which design is most appropriate?",
     "options": [
-      "Single-Region active-passive with manual recovery runbooks",
-      "Multi-Region active-active with stateless services and replicated state stores",
       "Single AZ with frequent snapshots",
-      "Warm standby without tested failover"
+      "Warm standby without tested failover",
+      "Single-Region active-passive with manual recovery runbooks",
+      "Multi-Region active-active with stateless services and replicated state stores"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A central platform team must distribute hardened base AMIs to all accounts. Which approach is best?",
     "options": [
+      "Use only public marketplace images",
       "Build AMIs manually in each account",
       "Use EC2 Image Builder pipeline and share AMIs through Organizations",
-      "Copy AMIs by CLI scripts from engineers' laptops",
-      "Use only public marketplace images"
+      "Copy AMIs by CLI scripts from engineers' laptops"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -84,34 +84,34 @@ const QUESTIONS = [
   {
     "q": "A platform team wants consistent guardrails without blocking innovation. Which combination works best?",
     "options": [
-      "SCP deny-lists only, no baseline automation",
       "Control Tower guardrails plus account baseline pipelines and exception workflow",
       "Allow full admin and audit monthly",
-      "Use IAM users with static access keys"
+      "Use IAM users with static access keys",
+      "SCP deny-lists only, no baseline automation"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "An application has a high-volume east-west traffic pattern across microservices in one Region. Which networking choice is most scalable?",
     "options": [
-      "Many VPC peerings with transitive routing assumptions",
-      "Hub-and-spoke architecture with Transit Gateway and segmented route domains",
       "Single subnet for all services",
-      "Internet Gateway for internal service traffic"
+      "Internet Gateway for internal service traffic",
+      "Many VPC peerings with transitive routing assumptions",
+      "Hub-and-spoke architecture with Transit Gateway and segmented route domains"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A regulated enterprise needs immutable architecture history for audit and rollback. Which approach is best?",
     "options": [
+      "Disable drift detection to reduce noise",
       "Manually document changes in wiki pages",
       "Use infrastructure as code with versioned pipelines and mandatory change approvals",
-      "Apply changes directly in the console",
-      "Disable drift detection to reduce noise"
+      "Apply changes directly in the console"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -128,34 +128,34 @@ const QUESTIONS = [
   {
     "q": "A team needs private connectivity to AWS services from hundreds of VPCs. Which pattern reduces operational overhead?",
     "options": [
-      "Create NAT Gateway in every subnet",
       "Centralized interface VPC endpoints with Private DNS and shared networking model",
       "Route all traffic through on-premises proxies",
-      "Use only public service endpoints"
+      "Use only public service endpoints",
+      "Create NAT Gateway in every subnet"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "An organization wants secure delegation for application teams to deploy only inside approved boundaries. What is best?",
     "options": [
-      "Grant AdministratorAccess to every team",
-      "Permission boundaries and scoped deployment roles with CI/CD federation",
       "Long-lived access keys in secrets manager",
-      "Root account access for production deploys"
+      "Root account access for production deploys",
+      "Grant AdministratorAccess to every team",
+      "Permission boundaries and scoped deployment roles with CI/CD federation"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A workload needs globally low latency reads while writes remain centralized. Which data strategy is best?",
     "options": [
+      "Nightly CSV exports to each Region",
       "Single-AZ relational database",
       "Global read replicas or globally distributed tables based on consistency needs",
-      "Cache disabled to simplify operations",
-      "Nightly CSV exports to each Region"
+      "Cache disabled to simplify operations"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -172,34 +172,34 @@ const QUESTIONS = [
   {
     "q": "A central observability platform must ingest logs from all accounts with minimal custom code. What should be used?",
     "options": [
-      "SSH pull logs from instances",
       "CloudWatch cross-account observability with centralized dashboards and metric streams",
       "Store logs only on local disks",
-      "Email log files daily"
+      "Email log files daily",
+      "SSH pull logs from instances"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "An enterprise requires standardized workload deployment blueprints for new business units. Which capability helps most?",
     "options": [
-      "Copy-paste CloudFormation templates from old projects",
-      "Service Catalog products with approved guardrails and lifecycle updates",
       "Manual setup guides only",
-      "Disable tagging to reduce friction"
+      "Disable tagging to reduce friction",
+      "Copy-paste CloudFormation templates from old projects",
+      "Service Catalog products with approved guardrails and lifecycle updates"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A migration wave includes Oracle databases with near-zero downtime requirements. Which approach is most suitable?",
     "options": [
+      "Weekly snapshot transfers",
       "Stop source DB, export dump, and import days later",
       "AWS DMS with ongoing replication and controlled cutover window",
-      "Manual SQL script copy over VPN",
-      "Weekly snapshot transfers"
+      "Manual SQL script copy over VPN"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Migration"
   },
   {
@@ -216,34 +216,34 @@ const QUESTIONS = [
   {
     "q": "A team needs to transfer 2 PB of archive data from a data center with limited bandwidth. What is the fastest option?",
     "options": [
-      "Use only SFTP over existing WAN links",
       "Use AWS Snowball Edge devices for bulk transfer",
       "Email encrypted drives to engineering team",
-      "Compress and upload through a jump host"
+      "Compress and upload through a jump host",
+      "Use only SFTP over existing WAN links"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Migration"
   },
   {
     "q": "A company wants to modernize a monolith incrementally while preserving business continuity. Which strategy is best?",
     "options": [
-      "Big-bang rewrite with one production cutover",
-      "Strangler pattern with domain-by-domain extraction behind routing control",
       "Freeze all features for 18 months",
-      "Replatform everything to containers in one sprint"
+      "Replatform everything to containers in one sprint",
+      "Big-bang rewrite with one production cutover",
+      "Strangler pattern with domain-by-domain extraction behind routing control"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Migration"
   },
   {
     "q": "A migration program needs repeatable, auditable server moves with minimal agent management. Which service is best?",
     "options": [
+      "AWS Data Exchange",
       "AWS Application Migration Service",
       "AWS Glue",
-      "AWS Backup",
-      "AWS Data Exchange"
+      "AWS Backup"
     ],
-    "answer": 0,
+    "answer": 1,
     "topic": "Migration"
   },
   {
@@ -260,34 +260,34 @@ const QUESTIONS = [
   {
     "q": "A company migrates file shares used by hybrid teams. Which solution provides managed NFS/SMB compatibility?",
     "options": [
-      "EC2 instances with local disks only",
       "Amazon FSx family selected by protocol and workload requirements",
       "S3 static website hosting",
-      "Route 53 public records"
+      "Route 53 public records",
+      "EC2 instances with local disks only"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Migration"
   },
   {
     "q": "A migration must keep legacy apps connected to on-premises systems during transition. Which connectivity option is most resilient?",
     "options": [
-      "Single internet VPN without redundancy",
-      "Direct Connect with VPN backup and dynamic routing",
       "Public SSH tunnels from developer laptops",
-      "No connectivity until final cutover"
+      "No connectivity until final cutover",
+      "Single internet VPN without redundancy",
+      "Direct Connect with VPN backup and dynamic routing"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Migration"
   },
   {
     "q": "A team must validate application behavior in AWS before final cutover. Which practice is best?",
     "options": [
+      "Test only networking",
       "Only run unit tests in dev",
       "Run production-like rehearsals with synthetic and replay traffic plus rollback drills",
-      "Skip testing to reduce schedule risk",
-      "Test only networking"
+      "Skip testing to reduce schedule risk"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Migration"
   },
   {
@@ -304,34 +304,34 @@ const QUESTIONS = [
   {
     "q": "A migration office wants a single dashboard for wave status, blockers, and cutover readiness. Which service helps most?",
     "options": [
-      "AWS Migration Hub",
       "Amazon Inspector",
       "AWS Secrets Manager",
-      "Amazon Athena"
+      "Amazon Athena",
+      "AWS Migration Hub"
     ],
-    "answer": 0,
+    "answer": 3,
     "topic": "Migration"
   },
   {
     "q": "A data warehouse migration must minimize downtime and enable parallel validation. Which pattern is best?",
     "options": [
-      "Offline migration only",
-      "Dual-run period with CDC synchronization and reconciliation checks",
       "Delete source after first load",
-      "Skip schema mapping"
+      "Skip schema mapping",
+      "Offline migration only",
+      "Dual-run period with CDC synchronization and reconciliation checks"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Migration"
   },
   {
     "q": "A team is migrating container workloads and wants managed orchestration with least control-plane overhead. Which option fits?",
     "options": [
+      "Batch scripts on on-prem servers",
       "Self-managed Kubernetes on EC2",
       "Amazon ECS with Fargate for simplified operations",
-      "Manual Docker on virtual machines",
-      "Batch scripts on on-prem servers"
+      "Manual Docker on virtual machines"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Migration"
   },
   {
@@ -348,34 +348,34 @@ const QUESTIONS = [
   {
     "q": "A migration involves thousands of schema changes that must be consistent across environments. Which method is best?",
     "options": [
-      "Manual SQL edits per environment",
       "Versioned schema migrations in CI/CD with automated validation",
       "Apply scripts directly in production",
-      "Use one-time ETL jobs only"
+      "Use one-time ETL jobs only",
+      "Manual SQL edits per environment"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Migration"
   },
   {
     "q": "A security team wants to block creation of internet-facing resources in restricted OUs. Which control is most effective?",
     "options": [
-      "IAM policy attached to one developer role",
-      "Service Control Policies at OU level",
       "Tagging conventions only",
-      "CloudWatch alarms without enforcement"
+      "CloudWatch alarms without enforcement",
+      "IAM policy attached to one developer role",
+      "Service Control Policies at OU level"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Governance"
   },
   {
     "q": "A compliance program needs continuous visibility into resource configuration drift. What should be implemented?",
     "options": [
+      "Only billing reports",
       "Monthly manual screenshots",
       "AWS Config rules with conformance packs and automated remediation",
-      "Disable API access outside business hours",
-      "Only billing reports"
+      "Disable API access outside business hours"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Governance"
   },
   {
@@ -392,34 +392,34 @@ const QUESTIONS = [
   {
     "q": "A platform team needs preventive encryption controls for all new storage resources. Which approach is best?",
     "options": [
-      "Post-deployment scripts run weekly",
       "SCP and preventive IaC guardrails enforcing encryption at creation",
       "Developer checklist in wiki",
-      "Manual ticket reviews"
+      "Manual ticket reviews",
+      "Post-deployment scripts run weekly"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Governance"
   },
   {
     "q": "A regulated company needs evidence that only approved AMIs are used in production. What should they use?",
     "options": [
-      "Instance tags reviewed quarterly",
-      "EC2 allowed AMIs with policy enforcement and reporting",
       "Manual AMI naming standards",
-      "CloudFront signed URLs"
+      "CloudFront signed URLs",
+      "Instance tags reviewed quarterly",
+      "EC2 allowed AMIs with policy enforcement and reporting"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Governance"
   },
   {
     "q": "A security operations team wants automatic quarantine of noncompliant workloads. Which design is best?",
     "options": [
+      "Disable noncompliant alarms",
       "Email alerts only",
       "EventBridge + Lambda remediation workflows tied to Config findings",
-      "Developer self-remediation with no SLA",
-      "Disable noncompliant alarms"
+      "Developer self-remediation with no SLA"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Governance"
   },
   {
@@ -436,34 +436,34 @@ const QUESTIONS = [
   {
     "q": "A governance board needs near real-time detection of publicly exposed S3 buckets. Which combination is best?",
     "options": [
-      "AWS Config + Security Hub + automated response playbook",
       "Monthly spreadsheet audits",
       "Only IAM Access Analyzer once per year",
-      "Manual CLI scripts on demand"
+      "Manual CLI scripts on demand",
+      "AWS Config + Security Hub + automated response playbook"
     ],
-    "answer": 0,
+    "answer": 3,
     "topic": "Governance"
   },
   {
     "q": "A company requires segregation of duties between infrastructure admins and auditors. Which model is best?",
     "options": [
-      "Shared admin role for all users",
-      "Federated roles with least privilege and separate audit roles",
       "Long-lived root credentials for break-glass",
-      "API keys in source control"
+      "API keys in source control",
+      "Shared admin role for all users",
+      "Federated roles with least privilege and separate audit roles"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Governance"
   },
   {
     "q": "A multinational company must retain logs according to regional legal requirements. Which practice helps most?",
     "options": [
+      "Store logs on ephemeral disks",
       "Single retention policy for all regions",
       "Region-specific log retention and lifecycle policies with governance automation",
-      "Delete all logs after 7 days",
-      "Store logs on ephemeral disks"
+      "Delete all logs after 7 days"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Governance"
   },
   {
@@ -480,34 +480,34 @@ const QUESTIONS = [
   {
     "q": "A company needs centralized visibility of security posture across all accounts and Regions. Which service fits best?",
     "options": [
-      "AWS Security Hub with delegated admin",
       "Amazon SES",
       "AWS Budgets",
-      "Amazon MQ"
+      "Amazon MQ",
+      "AWS Security Hub with delegated admin"
     ],
-    "answer": 0,
+    "answer": 3,
     "topic": "Governance"
   },
   {
     "q": "A governance program requires exception management with traceability and expiration. What should be established?",
     "options": [
-      "Permanent exceptions by email",
-      "Time-bound exception workflow with approvals and automatic revalidation",
       "Disable controls for affected teams",
-      "Skip documentation for urgent cases"
+      "Skip documentation for urgent cases",
+      "Permanent exceptions by email",
+      "Time-bound exception workflow with approvals and automatic revalidation"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Governance"
   },
   {
     "q": "A company wants organization-wide detective controls without maintaining custom polling scripts. Which approach is best?",
     "options": [
+      "Rely on penetration tests only",
       "Use EventBridge and AWS Config managed rules",
       "Run cron jobs from one EC2 instance",
-      "Collect logs only from production",
-      "Rely on penetration tests only"
+      "Collect logs only from production"
     ],
-    "answer": 0,
+    "answer": 1,
     "topic": "Governance"
   },
   {
@@ -524,34 +524,34 @@ const QUESTIONS = [
   {
     "q": "A compute-heavy workload has steady baseline usage and occasional bursts. Which purchasing strategy is most cost-effective?",
     "options": [
-      "100% On-Demand for all capacity",
       "Savings Plans for baseline plus Auto Scaling with On-Demand/Spot for burst",
       "Dedicated Hosts for all instances",
-      "Use only Spot for critical baseline"
+      "Use only Spot for critical baseline",
+      "100% On-Demand for all capacity"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Cost Optimization"
   },
   {
     "q": "A company sees high NAT Gateway data processing charges. What action often gives the fastest savings?",
     "options": [
-      "Increase instance size",
-      "Use VPC endpoints for AWS service traffic to bypass NAT",
       "Disable CloudWatch logging",
-      "Move all workloads to one subnet"
+      "Move all workloads to one subnet",
+      "Increase instance size",
+      "Use VPC endpoints for AWS service traffic to bypass NAT"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Cost Optimization"
   },
   {
     "q": "A storage estate has mixed access patterns and rising costs. Which approach is best?",
     "options": [
+      "Delete old versions without retention review",
       "Move everything to S3 Standard",
       "Use lifecycle policies and Intelligent-Tiering based on access behavior",
-      "Store all data on EFS",
-      "Delete old versions without retention review"
+      "Store all data on EFS"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Cost Optimization"
   },
   {
@@ -568,34 +568,34 @@ const QUESTIONS = [
   {
     "q": "A company wants to reduce inter-AZ data transfer costs for chatty workloads. Which design consideration matters most?",
     "options": [
-      "Place tightly coupled services to minimize unnecessary cross-AZ traffic",
       "Disable multi-AZ",
       "Use larger AMIs",
-      "Switch to dedicated hosts"
+      "Switch to dedicated hosts",
+      "Place tightly coupled services to minimize unnecessary cross-AZ traffic"
     ],
-    "answer": 0,
+    "answer": 3,
     "topic": "Cost Optimization"
   },
   {
     "q": "A business unit wants monthly spend alerts and forecast-based anomaly detection. Which combination is best?",
     "options": [
-      "AWS Budgets and Cost Anomaly Detection",
-      "CloudTrail and GuardDuty",
       "Route 53 and WAF",
-      "Inspector and Macie"
+      "Inspector and Macie",
+      "AWS Budgets and Cost Anomaly Detection",
+      "CloudTrail and GuardDuty"
     ],
-    "answer": 0,
+    "answer": 2,
     "topic": "Cost Optimization"
   },
   {
     "q": "A team runs intermittent analytics jobs and pays for idle clusters. What is the best optimization?",
     "options": [
+      "Dedicated instances in every Region",
       "Always-on cluster with manual pause reminders",
       "Use serverless or ephemeral job-based compute with automated start/stop",
-      "Bigger instances with lower count",
-      "Dedicated instances in every Region"
+      "Bigger instances with lower count"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Cost Optimization"
   },
   {
@@ -612,34 +612,34 @@ const QUESTIONS = [
   {
     "q": "RDS costs have grown due to overprovisioned instances and stale snapshots. Which action is best?",
     "options": [
-      "Disable backups",
       "Right-size instances, set snapshot retention lifecycle, and use Graviton where suitable",
       "Migrate all databases to EC2",
-      "Increase provisioned IOPS by default"
+      "Increase provisioned IOPS by default",
+      "Disable backups"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Cost Optimization"
   },
   {
     "q": "An application has predictable weekday traffic and low weekend demand. Which approach reduces cost safely?",
     "options": [
-      "Keep peak capacity 24/7",
-      "Scheduled scaling plus target tracking policies",
       "Disable Auto Scaling",
-      "Move to one large instance"
+      "Move to one large instance",
+      "Keep peak capacity 24/7",
+      "Scheduled scaling plus target tracking policies"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Cost Optimization"
   },
   {
     "q": "A team is paying high egress due to repeated cache misses for static content. Which service helps reduce origin transfer costs?",
     "options": [
+      "AWS Artifact",
       "AWS CloudFront with optimized cache behaviors",
       "AWS Glue",
-      "Amazon MQ",
-      "AWS Artifact"
+      "Amazon MQ"
     ],
-    "answer": 0,
+    "answer": 1,
     "topic": "Cost Optimization"
   },
   {
@@ -656,34 +656,34 @@ const QUESTIONS = [
   {
     "q": "A migration landed in AWS, but old resources remain idle and still billable. What should be done first?",
     "options": [
-      "Increase budget threshold",
       "Automated post-migration decommissioning workflow with approval checkpoints",
       "Ignore for one quarter",
-      "Move idle resources to another account"
+      "Move idle resources to another account",
+      "Increase budget threshold"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Cost Optimization"
   },
   {
     "q": "A workload stores large amounts of infrequently accessed compliance records. Which storage class strategy is most cost effective?",
     "options": [
-      "S3 Standard only",
-      "S3 Glacier classes with retrieval policy aligned to legal timelines",
       "EBS gp3 volumes",
-      "EFS One Zone for all records"
+      "EFS One Zone for all records",
+      "S3 Standard only",
+      "S3 Glacier classes with retrieval policy aligned to legal timelines"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Cost Optimization"
   },
   {
     "q": "A product team wants to optimize costs continuously, not quarterly. Which operating model is best?",
     "options": [
+      "Disable cost observability tools",
       "Annual architecture review only",
       "Embed FinOps KPIs into sprint planning and engineering dashboards",
-      "Finance-only ownership of cloud spend",
-      "Disable cost observability tools"
+      "Finance-only ownership of cloud spend"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Cost Optimization"
   },
   {
@@ -700,34 +700,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in multi-account architecture, network topology, and shared platform services. for the Enterprise Design domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A regulated workload depends on strong multi-account architecture, network topology, and shared platform services. controls in the Enterprise Design domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A platform team needs scalable multi-account architecture, network topology, and shared platform services. practices for the Enterprise Design domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -744,34 +744,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around multi-account architecture, network topology, and shared platform services. in the Enterprise Design domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "The SAP-C02 blueprint for Enterprise Design needs better resilience around multi-account architecture, network topology, and shared platform services.. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A team cannot prove ownership or accountability for multi-account architecture, network topology, and shared platform services. in the Enterprise Design domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -788,34 +788,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that multi-account architecture, network topology, and shared platform services. decisions in the Enterprise Design domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A team needs better observability for multi-account architecture, network topology, and shared platform services. in the Enterprise Design domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A postmortem shows that weak multi-account architecture, network topology, and shared platform services. practices in the Enterprise Design domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -832,34 +832,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in landing zone and organizational unit strategy for the Enterprise Design domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A regulated workload depends on strong landing zone and organizational unit strategy controls in the Enterprise Design domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A platform team needs scalable landing zone and organizational unit strategy practices for the Enterprise Design domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -876,34 +876,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around landing zone and organizational unit strategy in the Enterprise Design domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "The SAP-C02 blueprint for Enterprise Design needs better resilience around landing zone and organizational unit strategy. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A team cannot prove ownership or accountability for landing zone and organizational unit strategy in the Enterprise Design domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -920,34 +920,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that landing zone and organizational unit strategy decisions in the Enterprise Design domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A team needs better observability for landing zone and organizational unit strategy in the Enterprise Design domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A postmortem shows that weak landing zone and organizational unit strategy practices in the Enterprise Design domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -964,34 +964,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in scalable networking and shared service patterns for the Enterprise Design domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A regulated workload depends on strong scalable networking and shared service patterns controls in the Enterprise Design domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A platform team needs scalable scalable networking and shared service patterns practices for the Enterprise Design domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -1008,34 +1008,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around scalable networking and shared service patterns in the Enterprise Design domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "The SAP-C02 blueprint for Enterprise Design needs better resilience around scalable networking and shared service patterns. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A team cannot prove ownership or accountability for scalable networking and shared service patterns in the Enterprise Design domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -1052,34 +1052,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that scalable networking and shared service patterns decisions in the Enterprise Design domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A team needs better observability for scalable networking and shared service patterns in the Enterprise Design domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A postmortem shows that weak scalable networking and shared service patterns practices in the Enterprise Design domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   },
   {
@@ -1096,34 +1096,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in resilience trade-offs across regions and accounts for the Enterprise Design domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Enterprise Design"
   },
   {
     "q": "A regulated workload depends on strong resilience trade-offs across regions and accounts controls in the Enterprise Design domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Enterprise Design"
   },
   {
     "q": "A platform team needs scalable resilience trade-offs across regions and accounts practices for the Enterprise Design domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Enterprise Design"
   }
 ];

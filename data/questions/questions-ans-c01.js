@@ -22,7 +22,7 @@ const TOPIC_RULES = [
   [/hybrid|connectivity/i, "Hybrid Connectivity"],
   [/routing/i, "Routing"],
   [/dns/i, "DNS"],
-  [/network|security/i, "Network Security"]
+  [/network|security/i, "Network Security"],
 ];
 
 const QUESTIONS = [
@@ -40,34 +40,34 @@ const QUESTIONS = [
   {
     "q": "Which statement about Hybrid Connectivity is MOST accurate for exam-style architecture decisions?",
     "options": [
-      "Hybrid Connectivity is mostly unrelated to reliability and security",
       "Hybrid Connectivity requires balancing reliability, cost, security, and performance",
       "Hybrid Connectivity should avoid managed services",
-      "Hybrid Connectivity only matters in single-account environments"
+      "Hybrid Connectivity only matters in single-account environments",
+      "Hybrid Connectivity is mostly unrelated to reliability and security"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A production issue appears in Hybrid Connectivity. What should be the first practical response?",
     "options": [
-      "Make broad changes without measuring impact",
-      "Use telemetry, isolate the cause, then apply targeted remediation",
       "Disable alerting to reduce noise",
-      "Delete and recreate all resources immediately"
+      "Delete and recreate all resources immediately",
+      "Make broad changes without measuring impact",
+      "Use telemetry, isolate the cause, then apply targeted remediation"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs to improve outcomes in the Routing domain with the least operational overhead. Which approach is best?",
     "options": [
+      "Use one large server for all environments",
       "Build custom tooling from scratch for every workload",
       "Use managed AWS patterns and controls specific to Routing",
-      "Disable monitoring to reduce complexity",
-      "Use one large server for all environments"
+      "Disable monitoring to reduce complexity"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Routing"
   },
   {
@@ -84,34 +84,34 @@ const QUESTIONS = [
   {
     "q": "A production issue appears in Routing. What should be the first practical response?",
     "options": [
-      "Make broad changes without measuring impact",
       "Use telemetry, isolate the cause, then apply targeted remediation",
       "Disable alerting to reduce noise",
-      "Delete and recreate all resources immediately"
+      "Delete and recreate all resources immediately",
+      "Make broad changes without measuring impact"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Routing"
   },
   {
     "q": "A team needs to improve outcomes in the DNS domain with the least operational overhead. Which approach is best?",
     "options": [
-      "Build custom tooling from scratch for every workload",
-      "Use managed AWS patterns and controls specific to DNS",
       "Disable monitoring to reduce complexity",
-      "Use one large server for all environments"
+      "Use one large server for all environments",
+      "Build custom tooling from scratch for every workload",
+      "Use managed AWS patterns and controls specific to DNS"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "DNS"
   },
   {
     "q": "Which statement about DNS is MOST accurate for exam-style architecture decisions?",
     "options": [
+      "DNS only matters in single-account environments",
       "DNS is mostly unrelated to reliability and security",
       "DNS requires balancing reliability, cost, security, and performance",
-      "DNS should avoid managed services",
-      "DNS only matters in single-account environments"
+      "DNS should avoid managed services"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "DNS"
   },
   {
@@ -128,34 +128,34 @@ const QUESTIONS = [
   {
     "q": "A team needs to improve outcomes in the Network Security domain with the least operational overhead. Which approach is best?",
     "options": [
-      "Build custom tooling from scratch for every workload",
       "Use managed AWS patterns and controls specific to Network Security",
       "Disable monitoring to reduce complexity",
-      "Use one large server for all environments"
+      "Use one large server for all environments",
+      "Build custom tooling from scratch for every workload"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Network Security"
   },
   {
     "q": "Which statement about Network Security is MOST accurate for exam-style architecture decisions?",
     "options": [
-      "Network Security is mostly unrelated to reliability and security",
-      "Network Security requires balancing reliability, cost, security, and performance",
       "Network Security should avoid managed services",
-      "Network Security only matters in single-account environments"
+      "Network Security only matters in single-account environments",
+      "Network Security is mostly unrelated to reliability and security",
+      "Network Security requires balancing reliability, cost, security, and performance"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Network Security"
   },
   {
     "q": "A production issue appears in Network Security. What should be the first practical response?",
     "options": [
+      "Delete and recreate all resources immediately",
       "Make broad changes without measuring impact",
       "Use telemetry, isolate the cause, then apply targeted remediation",
-      "Disable alerting to reduce noise",
-      "Delete and recreate all resources immediately"
+      "Disable alerting to reduce noise"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Network Security"
   },
   {
@@ -172,34 +172,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -216,34 +216,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. in the Hybrid Connectivity domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "The ANS-C01 blueprint for Hybrid Connectivity needs better resilience around hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions.. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team cannot prove ownership or accountability for hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. in the Hybrid Connectivity domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -260,34 +260,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. decisions in the Hybrid Connectivity domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs better observability for hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. in the Hybrid Connectivity domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A postmortem shows that weak hybrid connectivity domain review aligned to exam-style scenarios and architecture decisions. practices in the Hybrid Connectivity domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -304,34 +304,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in core hybrid connectivity patterns and design choices for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong core hybrid connectivity patterns and design choices controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable core hybrid connectivity patterns and design choices practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -348,34 +348,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around core hybrid connectivity patterns and design choices in the Hybrid Connectivity domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "The ANS-C01 blueprint for Hybrid Connectivity needs better resilience around core hybrid connectivity patterns and design choices. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team cannot prove ownership or accountability for core hybrid connectivity patterns and design choices in the Hybrid Connectivity domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -392,34 +392,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that core hybrid connectivity patterns and design choices decisions in the Hybrid Connectivity domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs better observability for core hybrid connectivity patterns and design choices in the Hybrid Connectivity domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A postmortem shows that weak core hybrid connectivity patterns and design choices practices in the Hybrid Connectivity domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -436,34 +436,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in high-availability and security considerations for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong high-availability and security considerations controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable high-availability and security considerations practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -480,34 +480,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around high-availability and security considerations in the Hybrid Connectivity domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "The ANS-C01 blueprint for Hybrid Connectivity needs better resilience around high-availability and security considerations. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team cannot prove ownership or accountability for high-availability and security considerations in the Hybrid Connectivity domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -524,34 +524,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that high-availability and security considerations decisions in the Hybrid Connectivity domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs better observability for high-availability and security considerations in the Hybrid Connectivity domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A postmortem shows that weak high-availability and security considerations practices in the Hybrid Connectivity domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -568,34 +568,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in operational and troubleshooting mindset for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong operational and troubleshooting mindset controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable operational and troubleshooting mindset practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -612,34 +612,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around operational and troubleshooting mindset in the Hybrid Connectivity domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "The ANS-C01 blueprint for Hybrid Connectivity needs better resilience around operational and troubleshooting mindset. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team cannot prove ownership or accountability for operational and troubleshooting mindset in the Hybrid Connectivity domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -656,34 +656,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that operational and troubleshooting mindset decisions in the Hybrid Connectivity domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs better observability for operational and troubleshooting mindset in the Hybrid Connectivity domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A postmortem shows that weak operational and troubleshooting mindset practices in the Hybrid Connectivity domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -700,34 +700,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in cost and performance trade-offs for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong cost and performance trade-offs controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable cost and performance trade-offs practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -744,34 +744,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around cost and performance trade-offs in the Hybrid Connectivity domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "The ANS-C01 blueprint for Hybrid Connectivity needs better resilience around cost and performance trade-offs. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team cannot prove ownership or accountability for cost and performance trade-offs in the Hybrid Connectivity domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -788,34 +788,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that cost and performance trade-offs decisions in the Hybrid Connectivity domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs better observability for cost and performance trade-offs in the Hybrid Connectivity domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A postmortem shows that weak cost and performance trade-offs practices in the Hybrid Connectivity domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -832,34 +832,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in best-practice implementation details for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong best-practice implementation details controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable best-practice implementation details practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -876,34 +876,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around best-practice implementation details in the Hybrid Connectivity domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "The ANS-C01 blueprint for Hybrid Connectivity needs better resilience around best-practice implementation details. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team cannot prove ownership or accountability for best-practice implementation details in the Hybrid Connectivity domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -920,34 +920,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that best-practice implementation details decisions in the Hybrid Connectivity domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs better observability for best-practice implementation details in the Hybrid Connectivity domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A postmortem shows that weak best-practice implementation details practices in the Hybrid Connectivity domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -964,34 +964,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in hybrid connectivity governance and reliability decisions for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong hybrid connectivity governance and reliability decisions controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable hybrid connectivity governance and reliability decisions practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -1008,34 +1008,34 @@ const QUESTIONS = [
   {
     "q": "A team wants safer change management around hybrid connectivity governance and reliability decisions in the Hybrid Connectivity domain. Which capability helps most?",
     "options": [
-      "Direct production edits without peer review or rollback plans",
       "Versioned automation with approvals, tests, and controlled rollback paths",
       "Manual hotfixes from developer laptops only",
-      "A shared root account for all deployment activities"
+      "A shared root account for all deployment activities",
+      "Direct production edits without peer review or rollback plans"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "The ANS-C01 blueprint for Hybrid Connectivity needs better resilience around hybrid connectivity governance and reliability decisions. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
-      "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki",
+      "Design for redundancy, failure isolation, and tested recovery workflows"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team cannot prove ownership or accountability for hybrid connectivity governance and reliability decisions in the Hybrid Connectivity domain. What should be introduced?",
     "options": [
+      "A policy of resolving incidents without documentation",
       "Unstructured chat approvals and ad hoc spreadsheets",
       "Clear ownership metadata, audit trails, and operational runbooks tied to services",
-      "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "More shared admin credentials across teams"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -1052,34 +1052,34 @@ const QUESTIONS = [
   {
     "q": "A review shows that hybrid connectivity governance and reliability decisions decisions in the Hybrid Connectivity domain are inconsistent between teams. What should happen next?",
     "options": [
-      "Let each team continue independently to maximize flexibility",
       "Define shared guardrails, reference architectures, and measurable operational standards",
       "Remove central observability to reduce friction",
-      "Consolidate everything into one unmanaged environment"
+      "Consolidate everything into one unmanaged environment",
+      "Let each team continue independently to maximize flexibility"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A team needs better observability for hybrid connectivity governance and reliability decisions in the Hybrid Connectivity domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
-      "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals",
+      "Track actionable service metrics, logs, and traces with clear alert ownership"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A postmortem shows that weak hybrid connectivity governance and reliability decisions practices in the Hybrid Connectivity domain slowed recovery. Which long-term fix is best?",
     "options": [
+      "Reduce incident visibility so fewer teams are involved",
       "Increase team size without changing the operating model",
       "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
-      "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Accept longer recovery times as normal growth pain"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   },
   {
@@ -1096,34 +1096,34 @@ const QUESTIONS = [
   {
     "q": "A production incident exposed weaknesses in hybrid connectivity observability and automation standards for the Hybrid Connectivity domain. What should the team do first?",
     "options": [
-      "Make broad changes across all workloads without validating the root cause",
       "Use telemetry to isolate the problem, then apply targeted remediation with rollback safety",
       "Disable alerting until stakeholders stop escalating the issue",
-      "Move all workloads to one shared account immediately"
+      "Move all workloads to one shared account immediately",
+      "Make broad changes across all workloads without validating the root cause"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A regulated workload depends on strong hybrid connectivity observability and automation standards controls in the Hybrid Connectivity domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
-      "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks",
+      "Use least privilege, encryption, logging, and repeatable infrastructure changes"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Hybrid Connectivity"
   },
   {
     "q": "A platform team needs scalable hybrid connectivity observability and automation standards practices for the Hybrid Connectivity domain across several workloads. What is the best approach?",
     "options": [
+      "Disable shared monitoring to avoid noisy dashboards",
       "Create one-off process documents per team with no shared baseline",
       "Adopt standardized templates, automated checks, and centralized visibility",
-      "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Allow each workload to define conflicting controls independently"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Hybrid Connectivity"
   }
 ];

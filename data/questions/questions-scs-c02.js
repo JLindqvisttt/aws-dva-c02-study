@@ -57,7 +57,7 @@ const TOPIC_RULES = [
   [/\baccess.?analyzer\b/i, "IAM"],
   [/\borganization|scp\b|service.?control/i, "Organizations"],
   [/WAF\/Shield/i, "WAF/Shield"],
-  [/Compliance/i, "Compliance"]
+  [/Compliance/i, "Compliance"],
 ];
 
 const QUESTIONS = [
@@ -75,34 +75,34 @@ const QUESTIONS = [
   {
     "q": "A company uses AWS KMS to encrypt data. The data encryption key (DEK) is 256 bits. The plaintext DEK is used to encrypt data and then stored alongside the encrypted data. What security concern does this create?",
     "options": [
-      "KMS does not support 256-bit keys.",
       "Storing the plaintext DEK alongside the data defeats the purpose of encryption.",
       "KMS-generated DEKs cannot be used for envelope encryption.",
-      "The DEK must be rotated every 90 days."
+      "The DEK must be rotated every 90 days.",
+      "KMS does not support 256-bit keys."
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "KMS"
   },
   {
     "q": "A solutions architect must implement envelope encryption for data larger than 4 KB using AWS KMS. What is the correct process?",
     "options": [
-      "Call the KMS Encrypt API directly with the data payload.",
-      "Generate a data key using GenerateDataKey, encrypt data with the plaintext key locally, store the encrypted data key alongside the encrypted data, and discard the plaintext key.",
       "Store the CMK alongside the data for fast decryption.",
-      "Use the KMS Decrypt API to encrypt data by passing it as plaintext."
+      "Use the KMS Decrypt API to encrypt data by passing it as plaintext.",
+      "Call the KMS Encrypt API directly with the data payload.",
+      "Generate a data key using GenerateDataKey, encrypt data with the plaintext key locally, store the encrypted data key alongside the encrypted data, and discard the plaintext key."
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "KMS"
   },
   {
     "q": "An organization must log all API calls made to AWS services for compliance. The logs must be stored for 7 years and be tamper-evident. Which AWS service and configuration meets these requirements?",
     "options": [
+      "Use Amazon Macie to audit API calls and store findings in S3.",
       "Enable AWS Config and archive snapshots to S3.",
       "Enable AWS CloudTrail with log file validation and deliver logs to S3 with an S3 Object Lock WORM policy.",
-      "Enable VPC Flow Logs and archive to CloudWatch Logs.",
-      "Use Amazon Macie to audit API calls and store findings in S3."
+      "Enable VPC Flow Logs and archive to CloudWatch Logs."
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CloudTrail"
   },
   {
@@ -119,34 +119,34 @@ const QUESTIONS = [
   {
     "q": "Amazon GuardDuty detects a finding of type \"UnauthorizedAccess:EC2/SSHBruteForce\". What does this finding indicate?",
     "options": [
-      "An EC2 instance is attempting brute-force SSH attacks on another instance.",
       "An external IP address is performing brute-force SSH login attempts against an EC2 instance.",
       "An IAM user failed to authenticate via SSH multiple times.",
-      "A Lambda function is triggering repeated SSH connection attempts."
+      "A Lambda function is triggering repeated SSH connection attempts.",
+      "An EC2 instance is attempting brute-force SSH attacks on another instance."
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "GuardDuty"
   },
   {
     "q": "A company needs to protect its web application from common web exploits such as SQL injection and cross-site scripting (XSS). Which AWS service provides this protection?",
     "options": [
-      "AWS Shield Standard",
-      "AWS WAF",
       "Amazon GuardDuty",
-      "Amazon Inspector"
+      "Amazon Inspector",
+      "AWS Shield Standard",
+      "AWS WAF"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "WAF"
   },
   {
     "q": "A security engineer must ensure that only traffic from CloudFront can reach the origin Application Load Balancer. What is the recommended approach?",
     "options": [
+      "Use AWS WAF with a geo-restriction rule on the ALB.",
       "Use Security Groups to allow only the CloudFront IP ranges, updated via AWS-managed prefix lists.",
       "Configure the ALB to accept only HTTPS connections.",
-      "Deploy the ALB in a private subnet.",
-      "Use AWS WAF with a geo-restriction rule on the ALB."
+      "Deploy the ALB in a private subnet."
     ],
-    "answer": 0,
+    "answer": 1,
     "topic": "WAF"
   },
   {
@@ -163,34 +163,34 @@ const QUESTIONS = [
   {
     "q": "An application running on EC2 needs to retrieve database credentials from AWS Secrets Manager. The EC2 instance must access the service without credentials being hardcoded. What is the recommended approach?",
     "options": [
-      "Store the Secrets Manager ARN in an environment variable and use root credentials in the application.",
       "Assign an IAM role to the EC2 instance with permissions to call secretsmanager:GetSecretValue.",
       "Store the Secrets Manager credentials in the application code and encrypt the code.",
-      "Use the AWS CLI to fetch credentials at startup and store them in a local file."
+      "Use the AWS CLI to fetch credentials at startup and store them in a local file.",
+      "Store the Secrets Manager ARN in an environment variable and use root credentials in the application."
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Secrets Manager"
   },
   {
     "q": "A company needs to store and automatically rotate database credentials for an Amazon RDS instance. Rotation must happen every 30 days. Which service provides this capability natively?",
     "options": [
-      "AWS Systems Manager Parameter Store Standard tier",
-      "AWS Systems Manager Parameter Store Advanced tier",
       "AWS Secrets Manager with automatic rotation",
-      "AWS KMS with key rotation"
+      "AWS KMS with key rotation",
+      "AWS Systems Manager Parameter Store Standard tier",
+      "AWS Systems Manager Parameter Store Advanced tier"
     ],
-    "answer": 2,
+    "answer": 0,
     "topic": "Secrets Manager"
   },
   {
     "q": "A security engineer must restrict which AWS services member accounts in an AWS Organization can use. Service Control Policies (SCPs) are used. Which statement about SCPs is true?",
     "options": [
+      "SCPs override resource-based policies on S3 buckets.",
       "SCPs grant permissions to IAM users in member accounts.",
       "SCPs can restrict the root user of member accounts.",
-      "SCPs apply only to IAM roles, not IAM users.",
-      "SCPs override resource-based policies on S3 buckets."
+      "SCPs apply only to IAM roles, not IAM users."
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "Organizations"
   },
   {
@@ -207,34 +207,34 @@ const QUESTIONS = [
   {
     "q": "A Lambda function needs to access a resource in a VPC that has no internet access. The function must also call an external HTTPS API. Which approach allows both?",
     "options": [
-      "Place Lambda in the VPC and add a NAT Gateway in a public subnet.",
       "Place Lambda outside the VPC and use VPC Peering.",
       "Use a VPC endpoint for the Lambda service.",
-      "Lambda cannot access both internal VPC resources and external APIs simultaneously."
+      "Lambda cannot access both internal VPC resources and external APIs simultaneously.",
+      "Place Lambda in the VPC and add a NAT Gateway in a public subnet."
     ],
-    "answer": 0,
+    "answer": 3,
     "topic": "VPC Security"
   },
   {
     "q": "An organization wants to receive a unified view of security alerts from AWS services including GuardDuty, Macie, and Inspector across multiple AWS accounts. Which service provides this capability?",
     "options": [
-      "AWS CloudTrail",
-      "Amazon Detective",
       "AWS Security Hub",
-      "Amazon CloudWatch Dashboards"
+      "Amazon CloudWatch Dashboards",
+      "AWS CloudTrail",
+      "Amazon Detective"
     ],
-    "answer": 2,
+    "answer": 0,
     "topic": "Security Hub"
   },
   {
     "q": "A security engineer must ensure that all S3 objects uploaded to a bucket are encrypted and that unencrypted uploads are rejected. Which S3 feature enforces this?",
     "options": [
+      "An S3 Lifecycle policy requiring encryption",
       "S3 Default Encryption setting",
       "A bucket policy with a Deny condition on aws:SecureTransport",
-      "A bucket policy with a Deny condition on s3:x-amz-server-side-encryption when the header is absent",
-      "An S3 Lifecycle policy requiring encryption"
+      "A bucket policy with a Deny condition on s3:x-amz-server-side-encryption when the header is absent"
     ],
-    "answer": 2,
+    "answer": 3,
     "topic": "S3 Security"
   },
   {
@@ -251,34 +251,34 @@ const QUESTIONS = [
   {
     "q": "An application running on EC2 in Account A needs to access an S3 bucket in Account B. An IAM role named CrossAccountRole exists in Account B with S3 read permissions. What must Account A configure?",
     "options": [
-      "Nothing. The role in Account B is sufficient.",
       "An IAM policy in Account A that allows the EC2 instance to call sts:AssumeRole on the CrossAccountRole ARN in Account B.",
       "A VPC Peering connection between Account A and Account B.",
-      "Share the IAM role ARN and secret access key from Account B to Account A."
+      "Share the IAM role ARN and secret access key from Account B to Account A.",
+      "Nothing. The role in Account B is sufficient."
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM"
   },
   {
     "q": "A company uses AWS Certificate Manager (ACM) to manage SSL/TLS certificates for its ALBs. A certificate is expiring in 30 days. What is the recommended action?",
     "options": [
-      "Manually purchase and upload a new certificate to ACM before expiry.",
-      "ACM automatically renews certificates it manages — verify the domain validation is still valid.",
       "Re-import the certificate with a new private key.",
-      "Contact AWS Support to renew the certificate."
+      "Contact AWS Support to renew the certificate.",
+      "Manually purchase and upload a new certificate to ACM before expiry.",
+      "ACM automatically renews certificates it manages — verify the domain validation is still valid."
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "ACM"
   },
   {
     "q": "A security engineer needs to identify which IAM roles, users, and groups have access to an S3 bucket from outside the account. Which service provides this analysis?",
     "options": [
+      "Amazon GuardDuty",
       "AWS CloudTrail",
       "AWS IAM Access Analyzer",
-      "Amazon Macie",
-      "Amazon GuardDuty"
+      "Amazon Macie"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM"
   },
   {
@@ -295,34 +295,34 @@ const QUESTIONS = [
   {
     "q": "A company stores critical data in Amazon S3. The data must not be deleted or overwritten for a period of 5 years for regulatory compliance. Which S3 feature enforces this?",
     "options": [
-      "S3 Versioning with MFA Delete",
       "S3 Object Lock in Compliance mode with a 5-year retention period",
       "S3 Cross-Region Replication",
-      "S3 Lifecycle policy with expiration rules"
+      "S3 Lifecycle policy with expiration rules",
+      "S3 Versioning with MFA Delete"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "S3 Security"
   },
   {
     "q": "A developer accidentally pushed AWS access keys to a public GitHub repository. The keys belong to an IAM user with broad permissions. What is the CORRECT order of remediation actions?",
     "options": [
-      "1. Notify team. 2. Rotate keys. 3. Review CloudTrail logs. 4. Apply least privilege.",
-      "1. Immediately deactivate the compromised keys. 2. Review CloudTrail logs for unauthorized activity. 3. Create new keys if needed. 4. Apply least privilege.",
       "1. Delete the IAM user. 2. Create a new IAM user. 3. Re-deploy the application.",
-      "1. Remove the keys from GitHub. 2. Continue using the keys since they've been removed from the public repo."
+      "1. Remove the keys from GitHub. 2. Continue using the keys since they've been removed from the public repo.",
+      "1. Notify team. 2. Rotate keys. 3. Review CloudTrail logs. 4. Apply least privilege.",
+      "1. Immediately deactivate the compromised keys. 2. Review CloudTrail logs for unauthorized activity. 3. Create new keys if needed. 4. Apply least privilege."
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM"
   },
   {
     "q": "A solutions architect must ensure that traffic from EC2 instances to Amazon S3 does not traverse the public internet. The solution should require no additional charges for data transfer. Which solution achieves this?",
     "options": [
+      "Enable S3 Transfer Acceleration.",
       "Use a NAT Gateway for S3 traffic.",
       "Create a VPC Interface Endpoint for S3.",
-      "Create a VPC Gateway Endpoint for S3.",
-      "Enable S3 Transfer Acceleration."
+      "Create a VPC Gateway Endpoint for S3."
     ],
-    "answer": 2,
+    "answer": 3,
     "topic": "VPC Security"
   },
   {
@@ -339,34 +339,34 @@ const QUESTIONS = [
   {
     "q": "A company uses AWS KMS and wants to ensure that a customer-managed CMK is rotated automatically every year. Which action achieves this?",
     "options": [
-      "Enable automatic key rotation on the CMK; KMS rotates the backing key material annually.",
       "Delete and recreate the CMK every year.",
       "Import new key material into the CMK every 365 days manually.",
-      "Enable key rotation on the KMS alias, not the CMK itself."
+      "Enable key rotation on the KMS alias, not the CMK itself.",
+      "Enable automatic key rotation on the CMK; KMS rotates the backing key material annually."
     ],
-    "answer": 0,
+    "answer": 3,
     "topic": "KMS"
   },
   {
     "q": "A security team needs centrally applied WAF rules across all ALBs in all accounts in an AWS Organization. Which service provides centralized WAF management?",
     "options": [
-      "AWS Security Hub",
-      "AWS WAF applied manually to each ALB",
       "AWS Firewall Manager",
-      "Amazon GuardDuty with WAF integration"
+      "Amazon GuardDuty with WAF integration",
+      "AWS Security Hub",
+      "AWS WAF applied manually to each ALB"
     ],
-    "answer": 2,
+    "answer": 0,
     "topic": "Firewall Manager"
   },
   {
     "q": "Which CloudTrail feature allows a security team to verify that log files have not been modified or deleted after delivery to S3?",
     "options": [
+      "AWS Config with CloudTrail integration",
       "CloudTrail Insights",
       "CloudTrail Log File Validation",
-      "CloudTrail Event History",
-      "AWS Config with CloudTrail integration"
+      "CloudTrail Event History"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "CloudTrail"
   },
   {
@@ -387,34 +387,34 @@ const QUESTIONS = [
   {
     "q": "A security engineer must prevent IAM users in a member account from disabling Amazon GuardDuty. The control must be enforced even for account administrators. Which mechanism achieves this?",
     "options": [
-      "Create an IAM permission boundary on all IAM users.",
       "Apply a Service Control Policy (SCP) via AWS Organizations that denies guardduty:DisableDetector.",
       "Use AWS Config rules to detect and remediate when GuardDuty is disabled.",
-      "Enable GuardDuty in delegated administrator mode."
+      "Enable GuardDuty in delegated administrator mode.",
+      "Create an IAM permission boundary on all IAM users."
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "Organizations"
   },
   {
     "q": "A security team wants to enforce that all IAM users must authenticate using MFA before they can access any AWS resource via the AWS Management Console. Which IAM condition key should be used in the policy?",
     "options": [
-      "aws:SecureTransport",
-      "aws:MultiFactorAuthPresent",
       "aws:RequestedRegion",
-      "aws:PrincipalType"
+      "aws:PrincipalType",
+      "aws:SecureTransport",
+      "aws:MultiFactorAuthPresent"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM"
   },
   {
     "q": "A financial services company requires a dedicated hardware security module that meets FIPS 140-2 Level 3 compliance and allows direct access to cryptographic operations using industry-standard APIs such as PKCS#11. Which AWS service satisfies these requirements?",
     "options": [
+      "AWS Secrets Manager with automatic rotation",
       "AWS KMS with a Customer Managed Key",
       "AWS KMS with an AWS-managed key",
-      "AWS CloudHSM",
-      "AWS Secrets Manager with automatic rotation"
+      "AWS CloudHSM"
     ],
-    "answer": 2,
+    "answer": 3,
     "topic": "KMS"
   },
   {
@@ -431,34 +431,34 @@ const QUESTIONS = [
   {
     "q": "An AWS GuardDuty finding shows that an EC2 instance is being targeted by an SSH brute-force attack from an external IP address. A security engineer wants to automatically block the IP address. Which solution achieves this with the LEAST operational overhead?",
     "options": [
-      "Manually add an inbound deny rule to the instance's security group",
       "Create an EventBridge rule that triggers a Lambda function to add the attacker IP to a network ACL deny rule",
       "Enable GuardDuty threat intelligence feeds and wait for automatic blocking",
-      "Create a CloudWatch alarm and page the security team to take manual action"
+      "Create a CloudWatch alarm and page the security team to take manual action",
+      "Manually add an inbound deny rule to the instance's security group"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "GuardDuty"
   },
   {
     "q": "A development team needs a cost-effective way to store database passwords and API keys that does not require automatic rotation. The values must be encrypted at rest and accessible by the application using the AWS SDK. Which solution is MOST cost-effective?",
     "options": [
-      "AWS Secrets Manager with automatic rotation disabled",
-      "AWS Systems Manager Parameter Store SecureString with a KMS CMK",
       "Store credentials in AWS KMS directly as key metadata",
-      "Store credentials in an S3 bucket with server-side encryption"
+      "Store credentials in an S3 bucket with server-side encryption",
+      "AWS Secrets Manager with automatic rotation disabled",
+      "AWS Systems Manager Parameter Store SecureString with a KMS CMK"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "Secrets Manager"
   },
   {
     "q": "For the SCS-C02 IAM & STS domain, a team needs to improve aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. while minimizing operational overhead. Which approach is BEST?",
     "options": [
+      "Standardize on manual console changes for faster iteration",
       "Build custom tooling from scratch for every environment and team",
       "Use managed AWS capabilities with automation, observability, and policy guardrails",
-      "Delay instrumentation until after production rollout",
-      "Standardize on manual console changes for faster iteration"
+      "Delay instrumentation until after production rollout"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -475,34 +475,34 @@ const QUESTIONS = [
   {
     "q": "A regulated workload depends on strong aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. controls in the IAM & STS domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
       "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A platform team needs scalable aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. practices for the IAM & STS domain across several workloads. What is the best approach?",
     "options": [
-      "Create one-off process documents per team with no shared baseline",
-      "Adopt standardized templates, automated checks, and centralized visibility",
       "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Disable shared monitoring to avoid noisy dashboards",
+      "Create one-off process documents per team with no shared baseline",
+      "Adopt standardized templates, automated checks, and centralized visibility"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "Costs are rising in the IAM & STS domain because aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. is handled inefficiently. Which action is most effective first?",
     "options": [
+      "Turn off metrics so cost anomalies are less visible",
       "Increase spend permanently to avoid future reviews",
       "Right-size the design using workload telemetry, lifecycle controls, and managed-service trade-offs",
-      "Duplicate every environment for safety regardless of demand",
-      "Turn off metrics so cost anomalies are less visible"
+      "Duplicate every environment for safety regardless of demand"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -519,34 +519,34 @@ const QUESTIONS = [
   {
     "q": "The SCS-C02 blueprint for IAM & STS needs better resilience around aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle.. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
       "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A team cannot prove ownership or accountability for aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. in the IAM & STS domain. What should be introduced?",
     "options": [
-      "Unstructured chat approvals and ad hoc spreadsheets",
-      "Clear ownership metadata, audit trails, and operational runbooks tied to services",
       "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "A policy of resolving incidents without documentation",
+      "Unstructured chat approvals and ad hoc spreadsheets",
+      "Clear ownership metadata, audit trails, and operational runbooks tied to services"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "A new workload must launch quickly with strong aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. posture in the IAM & STS domain. Which pattern fits best?",
     "options": [
+      "Use long-lived credentials embedded in source code",
       "Copy an old environment manually and hope standards are similar",
       "Use approved baseline patterns with reusable automation and environment parameters",
-      "Skip governance for the first release to save time",
-      "Use long-lived credentials embedded in source code"
+      "Skip governance for the first release to save time"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -563,34 +563,34 @@ const QUESTIONS = [
   {
     "q": "A team needs better observability for aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. in the IAM & STS domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
       "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A postmortem shows that weak aws iam controls identity and access. sts issues temporary credentials for roles, federation, and cross-account access. least privilege is the core principle. practices in the IAM & STS domain slowed recovery. Which long-term fix is best?",
     "options": [
-      "Increase team size without changing the operating model",
-      "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
       "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Reduce incident visibility so fewer teams are involved",
+      "Increase team size without changing the operating model",
+      "Codify repeatable runbooks, automate common actions, and test failure paths regularly"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "For the SCS-C02 IAM & STS domain, a team needs to improve explicit deny > allow > implicit deny in policy evaluation while minimizing operational overhead. Which approach is BEST?",
     "options": [
+      "Standardize on manual console changes for faster iteration",
       "Build custom tooling from scratch for every environment and team",
       "Use managed AWS capabilities with automation, observability, and policy guardrails",
-      "Delay instrumentation until after production rollout",
-      "Standardize on manual console changes for faster iteration"
+      "Delay instrumentation until after production rollout"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -607,34 +607,34 @@ const QUESTIONS = [
   {
     "q": "A regulated workload depends on strong explicit deny > allow > implicit deny in policy evaluation controls in the IAM & STS domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
       "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A platform team needs scalable explicit deny > allow > implicit deny in policy evaluation practices for the IAM & STS domain across several workloads. What is the best approach?",
     "options": [
-      "Create one-off process documents per team with no shared baseline",
-      "Adopt standardized templates, automated checks, and centralized visibility",
       "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Disable shared monitoring to avoid noisy dashboards",
+      "Create one-off process documents per team with no shared baseline",
+      "Adopt standardized templates, automated checks, and centralized visibility"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "Costs are rising in the IAM & STS domain because explicit deny > allow > implicit deny in policy evaluation is handled inefficiently. Which action is most effective first?",
     "options": [
+      "Turn off metrics so cost anomalies are less visible",
       "Increase spend permanently to avoid future reviews",
       "Right-size the design using workload telemetry, lifecycle controls, and managed-service trade-offs",
-      "Duplicate every environment for safety regardless of demand",
-      "Turn off metrics so cost anomalies are less visible"
+      "Duplicate every environment for safety regardless of demand"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -651,34 +651,34 @@ const QUESTIONS = [
   {
     "q": "The SCS-C02 blueprint for IAM & STS needs better resilience around explicit deny > allow > implicit deny in policy evaluation. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
       "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A team cannot prove ownership or accountability for explicit deny > allow > implicit deny in policy evaluation in the IAM & STS domain. What should be introduced?",
     "options": [
-      "Unstructured chat approvals and ad hoc spreadsheets",
-      "Clear ownership metadata, audit trails, and operational runbooks tied to services",
       "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "A policy of resolving incidents without documentation",
+      "Unstructured chat approvals and ad hoc spreadsheets",
+      "Clear ownership metadata, audit trails, and operational runbooks tied to services"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "A new workload must launch quickly with strong explicit deny > allow > implicit deny in policy evaluation posture in the IAM & STS domain. Which pattern fits best?",
     "options": [
+      "Use long-lived credentials embedded in source code",
       "Copy an old environment manually and hope standards are similar",
       "Use approved baseline patterns with reusable automation and environment parameters",
-      "Skip governance for the first release to save time",
-      "Use long-lived credentials embedded in source code"
+      "Skip governance for the first release to save time"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -695,34 +695,34 @@ const QUESTIONS = [
   {
     "q": "A team needs better observability for explicit deny > allow > implicit deny in policy evaluation in the IAM & STS domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
       "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A postmortem shows that weak explicit deny > allow > implicit deny in policy evaluation practices in the IAM & STS domain slowed recovery. Which long-term fix is best?",
     "options": [
-      "Increase team size without changing the operating model",
-      "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
       "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Reduce incident visibility so fewer teams are involved",
+      "Increase team size without changing the operating model",
+      "Codify repeatable runbooks, automate common actions, and test failure paths regularly"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "For the SCS-C02 IAM & STS domain, a team needs to improve iam roles: attach to services/users for temporary credentials via sts assumerole while minimizing operational overhead. Which approach is BEST?",
     "options": [
+      "Standardize on manual console changes for faster iteration",
       "Build custom tooling from scratch for every environment and team",
       "Use managed AWS capabilities with automation, observability, and policy guardrails",
-      "Delay instrumentation until after production rollout",
-      "Standardize on manual console changes for faster iteration"
+      "Delay instrumentation until after production rollout"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -739,34 +739,34 @@ const QUESTIONS = [
   {
     "q": "A regulated workload depends on strong iam roles: attach to services/users for temporary credentials via sts assumerole controls in the IAM & STS domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
       "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A platform team needs scalable iam roles: attach to services/users for temporary credentials via sts assumerole practices for the IAM & STS domain across several workloads. What is the best approach?",
     "options": [
-      "Create one-off process documents per team with no shared baseline",
-      "Adopt standardized templates, automated checks, and centralized visibility",
       "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Disable shared monitoring to avoid noisy dashboards",
+      "Create one-off process documents per team with no shared baseline",
+      "Adopt standardized templates, automated checks, and centralized visibility"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "Costs are rising in the IAM & STS domain because iam roles: attach to services/users for temporary credentials via sts assumerole is handled inefficiently. Which action is most effective first?",
     "options": [
+      "Turn off metrics so cost anomalies are less visible",
       "Increase spend permanently to avoid future reviews",
       "Right-size the design using workload telemetry, lifecycle controls, and managed-service trade-offs",
-      "Duplicate every environment for safety regardless of demand",
-      "Turn off metrics so cost anomalies are less visible"
+      "Duplicate every environment for safety regardless of demand"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -783,34 +783,34 @@ const QUESTIONS = [
   {
     "q": "The SCS-C02 blueprint for IAM & STS needs better resilience around iam roles: attach to services/users for temporary credentials via sts assumerole. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
       "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A team cannot prove ownership or accountability for iam roles: attach to services/users for temporary credentials via sts assumerole in the IAM & STS domain. What should be introduced?",
     "options": [
-      "Unstructured chat approvals and ad hoc spreadsheets",
-      "Clear ownership metadata, audit trails, and operational runbooks tied to services",
       "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "A policy of resolving incidents without documentation",
+      "Unstructured chat approvals and ad hoc spreadsheets",
+      "Clear ownership metadata, audit trails, and operational runbooks tied to services"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "A new workload must launch quickly with strong iam roles: attach to services/users for temporary credentials via sts assumerole posture in the IAM & STS domain. Which pattern fits best?",
     "options": [
+      "Use long-lived credentials embedded in source code",
       "Copy an old environment manually and hope standards are similar",
       "Use approved baseline patterns with reusable automation and environment parameters",
-      "Skip governance for the first release to save time",
-      "Use long-lived credentials embedded in source code"
+      "Skip governance for the first release to save time"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -827,34 +827,34 @@ const QUESTIONS = [
   {
     "q": "A team needs better observability for iam roles: attach to services/users for temporary credentials via sts assumerole in the IAM & STS domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
       "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A postmortem shows that weak iam roles: attach to services/users for temporary credentials via sts assumerole practices in the IAM & STS domain slowed recovery. Which long-term fix is best?",
     "options": [
-      "Increase team size without changing the operating model",
-      "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
       "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Reduce incident visibility so fewer teams are involved",
+      "Increase team size without changing the operating model",
+      "Codify repeatable runbooks, automate common actions, and test failure paths regularly"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "For the SCS-C02 IAM & STS domain, a team needs to improve permission boundaries: cap maximum permissions an iam entity can have while minimizing operational overhead. Which approach is BEST?",
     "options": [
+      "Standardize on manual console changes for faster iteration",
       "Build custom tooling from scratch for every environment and team",
       "Use managed AWS capabilities with automation, observability, and policy guardrails",
-      "Delay instrumentation until after production rollout",
-      "Standardize on manual console changes for faster iteration"
+      "Delay instrumentation until after production rollout"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -871,34 +871,34 @@ const QUESTIONS = [
   {
     "q": "A regulated workload depends on strong permission boundaries: cap maximum permissions an iam entity can have controls in the IAM & STS domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
       "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A platform team needs scalable permission boundaries: cap maximum permissions an iam entity can have practices for the IAM & STS domain across several workloads. What is the best approach?",
     "options": [
-      "Create one-off process documents per team with no shared baseline",
-      "Adopt standardized templates, automated checks, and centralized visibility",
       "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Disable shared monitoring to avoid noisy dashboards",
+      "Create one-off process documents per team with no shared baseline",
+      "Adopt standardized templates, automated checks, and centralized visibility"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "Costs are rising in the IAM & STS domain because permission boundaries: cap maximum permissions an iam entity can have is handled inefficiently. Which action is most effective first?",
     "options": [
+      "Turn off metrics so cost anomalies are less visible",
       "Increase spend permanently to avoid future reviews",
       "Right-size the design using workload telemetry, lifecycle controls, and managed-service trade-offs",
-      "Duplicate every environment for safety regardless of demand",
-      "Turn off metrics so cost anomalies are less visible"
+      "Duplicate every environment for safety regardless of demand"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -915,34 +915,34 @@ const QUESTIONS = [
   {
     "q": "The SCS-C02 blueprint for IAM & STS needs better resilience around permission boundaries: cap maximum permissions an iam entity can have. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
       "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A team cannot prove ownership or accountability for permission boundaries: cap maximum permissions an iam entity can have in the IAM & STS domain. What should be introduced?",
     "options": [
-      "Unstructured chat approvals and ad hoc spreadsheets",
-      "Clear ownership metadata, audit trails, and operational runbooks tied to services",
       "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "A policy of resolving incidents without documentation",
+      "Unstructured chat approvals and ad hoc spreadsheets",
+      "Clear ownership metadata, audit trails, and operational runbooks tied to services"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "A new workload must launch quickly with strong permission boundaries: cap maximum permissions an iam entity can have posture in the IAM & STS domain. Which pattern fits best?",
     "options": [
+      "Use long-lived credentials embedded in source code",
       "Copy an old environment manually and hope standards are similar",
       "Use approved baseline patterns with reusable automation and environment parameters",
-      "Skip governance for the first release to save time",
-      "Use long-lived credentials embedded in source code"
+      "Skip governance for the first release to save time"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -959,34 +959,34 @@ const QUESTIONS = [
   {
     "q": "A team needs better observability for permission boundaries: cap maximum permissions an iam entity can have in the IAM & STS domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
       "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A postmortem shows that weak permission boundaries: cap maximum permissions an iam entity can have practices in the IAM & STS domain slowed recovery. Which long-term fix is best?",
     "options": [
-      "Increase team size without changing the operating model",
-      "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
       "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Reduce incident visibility so fewer teams are involved",
+      "Increase team size without changing the operating model",
+      "Codify repeatable runbooks, automate common actions, and test failure paths regularly"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "For the SCS-C02 IAM & STS domain, a team needs to improve cross-account access: trust policy in target account + permission policy in source account while minimizing operational overhead. Which approach is BEST?",
     "options": [
+      "Standardize on manual console changes for faster iteration",
       "Build custom tooling from scratch for every environment and team",
       "Use managed AWS capabilities with automation, observability, and policy guardrails",
-      "Delay instrumentation until after production rollout",
-      "Standardize on manual console changes for faster iteration"
+      "Delay instrumentation until after production rollout"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -1003,34 +1003,34 @@ const QUESTIONS = [
   {
     "q": "A regulated workload depends on strong cross-account access: trust policy in target account + permission policy in source account controls in the IAM & STS domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
       "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A platform team needs scalable cross-account access: trust policy in target account + permission policy in source account practices for the IAM & STS domain across several workloads. What is the best approach?",
     "options": [
-      "Create one-off process documents per team with no shared baseline",
-      "Adopt standardized templates, automated checks, and centralized visibility",
       "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Disable shared monitoring to avoid noisy dashboards",
+      "Create one-off process documents per team with no shared baseline",
+      "Adopt standardized templates, automated checks, and centralized visibility"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "Costs are rising in the IAM & STS domain because cross-account access: trust policy in target account + permission policy in source account is handled inefficiently. Which action is most effective first?",
     "options": [
+      "Turn off metrics so cost anomalies are less visible",
       "Increase spend permanently to avoid future reviews",
       "Right-size the design using workload telemetry, lifecycle controls, and managed-service trade-offs",
-      "Duplicate every environment for safety regardless of demand",
-      "Turn off metrics so cost anomalies are less visible"
+      "Duplicate every environment for safety regardless of demand"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -1047,34 +1047,34 @@ const QUESTIONS = [
   {
     "q": "The SCS-C02 blueprint for IAM & STS needs better resilience around cross-account access: trust policy in target account + permission policy in source account. Which architecture decision is strongest?",
     "options": [
-      "Keep a single failure domain and document recovery in a wiki",
       "Design for redundancy, failure isolation, and tested recovery workflows",
       "Disable automated health checks to avoid false alarms",
-      "Depend on manual intervention for every outage scenario"
+      "Depend on manual intervention for every outage scenario",
+      "Keep a single failure domain and document recovery in a wiki"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A team cannot prove ownership or accountability for cross-account access: trust policy in target account + permission policy in source account in the IAM & STS domain. What should be introduced?",
     "options": [
-      "Unstructured chat approvals and ad hoc spreadsheets",
-      "Clear ownership metadata, audit trails, and operational runbooks tied to services",
       "More shared admin credentials across teams",
-      "A policy of resolving incidents without documentation"
+      "A policy of resolving incidents without documentation",
+      "Unstructured chat approvals and ad hoc spreadsheets",
+      "Clear ownership metadata, audit trails, and operational runbooks tied to services"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "A new workload must launch quickly with strong cross-account access: trust policy in target account + permission policy in source account posture in the IAM & STS domain. Which pattern fits best?",
     "options": [
+      "Use long-lived credentials embedded in source code",
       "Copy an old environment manually and hope standards are similar",
       "Use approved baseline patterns with reusable automation and environment parameters",
-      "Skip governance for the first release to save time",
-      "Use long-lived credentials embedded in source code"
+      "Skip governance for the first release to save time"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -1091,34 +1091,34 @@ const QUESTIONS = [
   {
     "q": "A team needs better observability for cross-account access: trust policy in target account + permission policy in source account in the IAM & STS domain. Which improvement is most valuable?",
     "options": [
-      "Only monitor infrastructure CPU metrics and ignore business signals",
       "Track actionable service metrics, logs, and traces with clear alert ownership",
       "Replace alerts with weekly manual reviews",
-      "Disable dashboards to avoid confusion during incidents"
+      "Disable dashboards to avoid confusion during incidents",
+      "Only monitor infrastructure CPU metrics and ignore business signals"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A postmortem shows that weak cross-account access: trust policy in target account + permission policy in source account practices in the IAM & STS domain slowed recovery. Which long-term fix is best?",
     "options": [
-      "Increase team size without changing the operating model",
-      "Codify repeatable runbooks, automate common actions, and test failure paths regularly",
       "Accept longer recovery times as normal growth pain",
-      "Reduce incident visibility so fewer teams are involved"
+      "Reduce incident visibility so fewer teams are involved",
+      "Increase team size without changing the operating model",
+      "Codify repeatable runbooks, automate common actions, and test failure paths regularly"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "For the SCS-C02 IAM & STS domain, a team needs to improve iam access analyzer: finds external access paths to your resources while minimizing operational overhead. Which approach is BEST?",
     "options": [
+      "Standardize on manual console changes for faster iteration",
       "Build custom tooling from scratch for every environment and team",
       "Use managed AWS capabilities with automation, observability, and policy guardrails",
-      "Delay instrumentation until after production rollout",
-      "Standardize on manual console changes for faster iteration"
+      "Delay instrumentation until after production rollout"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   },
   {
@@ -1135,34 +1135,34 @@ const QUESTIONS = [
   {
     "q": "A regulated workload depends on strong iam access analyzer: finds external access paths to your resources controls in the IAM & STS domain. Which design is most appropriate?",
     "options": [
-      "Rely on tribal knowledge and periodic manual checks",
       "Use least privilege, encryption, logging, and repeatable infrastructure changes",
       "Share administrator access among all operators for faster support",
-      "Prioritize speed over auditability and defer governance until later"
+      "Prioritize speed over auditability and defer governance until later",
+      "Rely on tribal knowledge and periodic manual checks"
     ],
-    "answer": 1,
+    "answer": 0,
     "topic": "IAM & STS"
   },
   {
     "q": "A platform team needs scalable iam access analyzer: finds external access paths to your resources practices for the IAM & STS domain across several workloads. What is the best approach?",
     "options": [
-      "Create one-off process documents per team with no shared baseline",
-      "Adopt standardized templates, automated checks, and centralized visibility",
       "Allow each workload to define conflicting controls independently",
-      "Disable shared monitoring to avoid noisy dashboards"
+      "Disable shared monitoring to avoid noisy dashboards",
+      "Create one-off process documents per team with no shared baseline",
+      "Adopt standardized templates, automated checks, and centralized visibility"
     ],
-    "answer": 1,
+    "answer": 3,
     "topic": "IAM & STS"
   },
   {
     "q": "Costs are rising in the IAM & STS domain because iam access analyzer: finds external access paths to your resources is handled inefficiently. Which action is most effective first?",
     "options": [
+      "Turn off metrics so cost anomalies are less visible",
       "Increase spend permanently to avoid future reviews",
       "Right-size the design using workload telemetry, lifecycle controls, and managed-service trade-offs",
-      "Duplicate every environment for safety regardless of demand",
-      "Turn off metrics so cost anomalies are less visible"
+      "Duplicate every environment for safety regardless of demand"
     ],
-    "answer": 1,
+    "answer": 2,
     "topic": "IAM & STS"
   }
 ];
