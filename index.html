@@ -7,11 +7,9 @@
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-body{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--bg)) 0%,var(--bg) 65%)}
-nav{background:transparent;border-bottom-color:transparent;box-shadow:none}
-.nav-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:52px;padding:0 16px}
-.portal-nav-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end}
-.portal-hero{text-align:center;padding:44px 24px 16px;position:relative;overflow:hidden}
+body{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--bg)) 0%,var(--bg) 420px)}
+.portal-hero{text-align:center;padding:52px 24px 16px;position:relative;overflow:hidden}
+.portal-hero .portal-actions{position:absolute;top:16px;right:20px;display:flex;align-items:center;gap:8px;z-index:10}
 .portal-hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(240,150,42,0.08) 0%,transparent 65%);animation:heroFloat 14s ease-in-out infinite;top:-320px;left:-180px;pointer-events:none;z-index:0}
 .portal-hero::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(240,150,42,0.05) 0%,transparent 65%);animation:heroFloat 14s ease-in-out infinite 7s reverse;bottom:-220px;right:-80px;pointer-events:none;z-index:0}
 .portal-hero > *{position:relative;z-index:1}
@@ -79,17 +77,11 @@ nav{background:transparent;border-bottom-color:transparent;box-shadow:none}
 <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body>
-<nav>
-  <div class="nav-top">
-    <div></div>
-    <span class="nav-title-cert">&#x2601; AWS Cert Study Portal</span>
-    <div class="portal-nav-actions">
-      <a class="portal-feedback-btn" href="feedback.html">&#x1F4AC; Feedback</a>
-      <button class="theme-toggle" id="theme-toggle" onclick="togglePortalTheme()" title="Toggle light/dark mode">&#x1F319;</button>
-    </div>
-  </div>
-</nav>
 <div class="portal-hero">
+  <div class="portal-actions">
+    <a class="portal-feedback-btn" href="feedback.html">&#x1F4AC; Feedback</a>
+    <button class="theme-toggle" id="theme-toggle" onclick="togglePortalTheme()" title="Toggle light/dark mode">&#x1F319;</button>
+  </div>
   <h1>Choose your <span>AWS Certification</span></h1>
   <p>Practice with realistic quiz flows, track your mastery, and build confidence before exam day.</p>
 </div>
