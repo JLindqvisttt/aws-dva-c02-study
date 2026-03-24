@@ -821,9 +821,9 @@ function renderQuestion() {
     '<div class="quiz-header"><span class="quiz-progress-text">Question '+(current+1)+' of '+total+'</span>'+timerHtml+'<span class="quiz-score" id="qscore">Score: '+quizState.score+'/'+(current)+'</span></div>' +
     '<div class="progress-bar" style="margin-bottom:16px"><div class="progress-fill" style="width:'+pct+'%"></div></div>' +
     '<div class="question-card">' +
+    '<button class="btn btn-sm question-bookmark-corner '+(isBookmarked(q._idx)?'btn-bookmarked':'')+'" id="bookmark-question-btn" onclick="toggleCurrentBookmark()">'+bookmarkButtonLabel(q._idx)+'</button>' +
     '<div class="question-num">Topic: <span class="badge-pill">'+escHtml(q.topic||'General')+'</span>'+multiHint+'</div>' +
     '<div class="question-text">'+escHtml(q.q)+' <button class="info-btn" onclick="showInfo(\'' + escJs(q.topic||'General') + '\')" title="Service info">ℹ</button></div>' +
-    '<div class="question-actions"><button class="btn btn-sm '+(isBookmarked(q._idx)?'btn-bookmarked':'')+'" id="bookmark-question-btn" onclick="toggleCurrentBookmark()">'+bookmarkButtonLabel(q._idx)+'</button></div>' +
     '<div class="answers" id="answers-wrap">'+optHtml+'</div>' +
     '<div id="feedback-area"></div>' +
     '<div class="next-btn-wrap" id="next-wrap" style="display:none"><button class="btn btn-primary" onclick="nextQuestion()">'+(current<total-1?'Next Question →':'See Results')+'</button></div>' +
@@ -1047,18 +1047,20 @@ function initFlashcards() {
 
 function ensureFlashActions() {
   const nav = document.querySelector('.flash-nav');
-  if (!nav) return;
+  const wrap = document.querySelector('.flash-wrap');
+  if (!nav && !wrap) return;
 
   const oldWrap = document.querySelector('.flash-extra-actions');
   if (oldWrap) oldWrap.remove();
 
   if (!document.getElementById('flash-bookmark-btn')) {
     const btn = document.createElement('button');
-    btn.className = 'btn btn-sm flash-bookmark-btn';
+    btn.className = 'btn btn-sm flash-bookmark-btn flash-bookmark-corner';
     btn.id = 'flash-bookmark-btn';
     btn.textContent = '☆ Bookmark';
     btn.onclick = toggleCurrentFlashBookmark;
-    nav.appendChild(btn);
+    if (wrap) wrap.appendChild(btn);
+    else nav.appendChild(btn);
   }
 
   if (!document.querySelector('.flash-shortcut-hint')) {

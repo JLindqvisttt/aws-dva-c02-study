@@ -150,10 +150,11 @@ main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .quiz-score{font-size:0.85rem;font-weight:700;color:var(--accent)}
 .timer{font-size:0.85rem;font-weight:700;color:var(--wrong);background:rgba(229,62,62,0.1);padding:4px 12px;border-radius:999px;border:1px solid rgba(229,62,62,0.25)}
 .timer.ok{color:var(--accent);background:rgba(240,150,42,0.1);border-color:rgba(240,150,42,0.3)}
-.question-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:12px;box-shadow:var(--shadow)}
+.question-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:12px;box-shadow:var(--shadow);position:relative}
 .question-num{font-size:0.7rem;color:var(--text2);margin-bottom:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px}
 .question-text{font-size:0.95rem;line-height:1.75;font-weight:500;margin-bottom:18px}
 .question-actions{display:flex;justify-content:flex-end;align-items:center;margin:-4px 0 14px}
+.question-bookmark-corner{position:absolute;top:12px;right:12px;z-index:2;min-height:32px;padding:6px 10px}
 .answers{display:flex;flex-direction:column;gap:7px}
 .answer-btn{background:var(--card2);border:1.5px solid var(--border);color:var(--text);padding:11px 16px;border-radius:12px;cursor:pointer;font-size:0.85rem;text-align:left;transition:var(--transition);line-height:1.5}
 .answer-btn:hover:not(:disabled){border-color:var(--accent);background:var(--btn-hover)}
@@ -225,10 +226,10 @@ main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .coverage-meta{font-size:0.72rem;color:var(--text2);text-align:right}
 .history-empty{font-size:0.84rem;color:var(--text2)}
 .flash-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}.flash-controls .section-title{width:100%;text-align:center;margin-bottom:4px}
-.flash-wrap{perspective:1000px;max-width:580px;margin:0 auto 20px}
+.flash-wrap{perspective:1000px;max-width:580px;margin:0 auto 20px;position:relative}
 .flash-card{width:100%;min-height:260px;border-radius:14px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1)}
 .flash-card.flipped{transform:rotateY(180deg)}
-.flash-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:28px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1.5px solid var(--border);box-shadow:var(--shadow)}
+.flash-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:56px 28px 28px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1.5px solid var(--border);box-shadow:var(--shadow)}
 .flash-front{background:var(--card);border-color:var(--accent)}
 .flash-back{background:var(--card2);transform:rotateY(180deg);border-color:var(--correct)}
 .flash-hint{font-size:0.68rem;color:var(--text2);margin-top:auto;padding-top:12px;text-transform:uppercase;letter-spacing:0.5px}
@@ -237,6 +238,7 @@ main{flex:1;padding:24px 20px;max-width:920px;margin:0 auto;width:100%}
 .flash-nav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:12px;flex-wrap:wrap}
 .flash-counter{font-size:0.82rem;color:var(--text2);min-width:80px;text-align:center;font-weight:500}
 .flash-bookmark-btn{margin-left:2px}
+.flash-bookmark-corner{position:absolute;top:10px;right:10px;z-index:4;min-height:32px;padding:6px 10px}
 .flash-shortcut-hint{font-size:0.72rem;color:var(--text2);margin-top:10px;text-align:center}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px}
 .modal-overlay.hidden{display:none}
@@ -378,6 +380,7 @@ h2.section-title .hl{color:var(--accent)}
   .nav-tab{padding:11px 8px;font-size:0.76rem;min-height:44px}
   main{padding:18px 12px}
   .question-card{padding:16px}
+  .question-bookmark-corner{top:10px;right:10px}
   .result-card{padding:24px 16px}
   .quiz-review-list{max-height:420px}
   .history-summary-grid{grid-template-columns:1fr 1fr 1fr;gap:10px}
@@ -387,7 +390,8 @@ h2.section-title .hl{color:var(--accent)}
   .history-two-col .card{height:auto;min-height:0}
   .trend-row{grid-template-columns:54px 1fr 78px;gap:8px}
   .coverage-row{grid-template-columns:minmax(84px,1.1fr) 2fr 40px;gap:8px}
-  .flash-face{padding:20px}
+  .flash-face{padding:50px 20px 20px}
+  .flash-bookmark-corner{top:8px;right:8px}
   .portal-hero{padding:56px 12px 24px}
   .portal-hero .portal-actions{top:4px;right:12px;left:12px;justify-content:flex-end;gap:8px}
   .portal-hero h1{font-size:1.62rem;line-height:1.1;margin-bottom:12px}
