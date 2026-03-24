@@ -26,6 +26,23 @@ function injectReleaseTag(){
   footer.appendChild(sep); footer.appendChild(rel);
 }
 
+function prefillFeedbackDraft(){
+  var params = new URLSearchParams(location.search);
+  if(params.get('draft') !== '1') return;
+  try{
+    var raw = localStorage.getItem('aws-feedback-draft');
+    if(!raw) return;
+    var draft = JSON.parse(raw);
+    if(draft.type) document.getElementById('type').value = draft.type;
+    if(draft.cert) document.getElementById('cert').value = draft.cert;
+    if(draft.message) document.getElementById('message').value = draft.message;
+    localStorage.removeItem('aws-feedback-draft');
+    showStatus('ok','Question details were prefilled. Add your note and submit when feedback integration is enabled.');
+  }catch(e){
+    localStorage.removeItem('aws-feedback-draft');
+  }
+}
+
 function setFeedbackInactiveState(){
   if(window.FEEDBACK_API_URL) return;
   var btn=document.getElementById('submit-btn');
@@ -69,3 +86,4 @@ document.getElementById('feedback-form').addEventListener('submit', async functi
 
 injectReleaseTag();
 setFeedbackInactiveState();
+prefillFeedbackDraft();
