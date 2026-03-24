@@ -27,6 +27,191 @@ function saveProgress(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
 function isMastered(e) { return e && e.correct >= 1; }
 function isWeak(e) { return e && e.incorrect > 0 && !isMastered(e); }
 
+function buildProgressSnapshot() {
+  const p = loadProgress();
+  const topicStats = {};
+  let mastered = 0;
+  const topicsSeen = new Set();
+
+  QUESTIONS.forEach((q, i) => {
+    const topic = q.topic || tagQuestion(q);
+    const entry = p[i];
+    if (!topicStats[topic]) topicStats[topic] = { topic, total: 0, seen: 0, mastered: 0, weak: 0 };
+    topicStats[topic].total++;
+    if (entry && (entry.correct > 0 || entry.incorrect > 0)) {
+      topicStats[topic].seen++;
+      topicsSeen.add(topic);
+    }
+    if (isMastered(entry)) {
+      topicStats[topic].mastered++;
+      mastered++;
+    }
+    if (isWeak(entry)) topicStats[topic].weak++;
+  });
+
+  const topicList = Object.values(topicStats);
+  const weakMap = {};
+  topicList.forEach(stat => {
+    if (stat.weak > 0) weakMap[stat.topic] = stat.weak;
+  });
+
+  return {
+    progress: p,
+    mastered,
+    topicsSeen: topicsSeen.size,
+    masteryPct: Math.round(mastered / QUESTIONS.length * 100),
+    weakMap,
+    topicStats: topicList,
+  };
+}
+
+function ensureHomeInsights() {
+  const home = document.getElementById('tab-home');
+  const actions = home && home.querySelector('.home-actions');
+  if (!home || !actions) return;
+
+  if (!document.getElementById('smart-action-card')) {
+    const smart = document.createElement('div');
+    smart.className = 'card smart-action-card';
+    smart.id = 'smart-action-card';
+    home.insertBefore(smart, actions);
+  }
+
+  if (!document.getElementById('topic-readiness-card')) {
+    const readiness = document.createElement('div');
+    readiness.className = 'card topic-readiness-card';
+    readiness.id = 'topic-readiness-card';
+    actions.insertAdjacentElement('afterend', readiness);
+  }
+}
+
+function getRecommendedAction(snapshot) {
+  const worstTopic = Object.entries(snapshot.weakMap).sort((a, b) => b[1] - a[1])[0];
+  const unseenTopic = snapshot.topicStats.find(stat => stat.seen === 0);
+
+  if (snapshot.mastered === 0) {
+    return {
+      eyebrow: 'Recommended Next Step',
+      title: 'Start with a focused warm-up',
+      desc: 'Take a short 10-question quiz to quickly identify your strongest and weakest topics.',
+      meta: 'Best for first-time practice',
+      cta: 'Start 10-question quiz',
+      action: 'startQuickQuiz(10)'
+    };
+  }
+  if (worstTopic) {
+    return {
+      eyebrow: 'Recommended Next Step',
+      title: 'Revisit your weakest area',
+      desc: 'You currently have the most misses in ' + worstTopic[0] + '. Tightening that topic will move your score fastest.',
+      meta: worstTopic[1] + ' question' + (worstTopic[1] === 1 ? '' : 's') + ' still need review',
+      cta: 'Practice weak areas',
+      action: 'startWeakAreas()'
+    };
+  }
+  if (snapshot.masteryPct >= 70) {
+    return {
+      eyebrow: 'Recommended Next Step',
+      title: 'Simulate the real exam',
+      desc: 'Your mastery is strong enough to justify a timed run. Use exam mode to pressure-test readiness.',
+      meta: snapshot.masteryPct + '% mastery across the bank',
+      cta: 'Start exam simulation',
+      action: 'startExamSim()'
+    };
+  }
+  if (unseenTopic) {
+    return {
+      eyebrow: 'Recommended Next Step',
+      title: 'Cover an untouched topic',
+      desc: unseenTopic.topic + ' has not been practiced yet. Filling those gaps gives you a more even score distribution.',
+      meta: 'Unstarted topic: ' + unseenTopic.topic,
+      cta: 'Open study guide',
+      action: 'goTab(\'study\')'
+    };
+  }
+  return {
+    eyebrow: 'Recommended Next Step',
+    title: 'Keep momentum with a mixed set',
+    desc: 'Run a 20-question mixed quiz to reinforce what is working and expose what still feels shaky.',
+    meta: snapshot.masteryPct + '% mastery so far',
+    cta: 'Start 20-question quiz',
+    action: 'startQuickQuiz(20)'
+  };
+}
+
+function getTopicStatus(stat) {
+  if (stat.seen === 0) return { label: 'Not started', cls: 'not-started' };
+  if (stat.weak > 0) return { label: 'Needs work', cls: 'needs-work' };
+  if (stat.mastered >= Math.max(1, Math.ceil(stat.total * 0.35))) return { label: 'Ready', cls: 'ready' };
+  return { label: 'In progress', cls: 'in-progress' };
+}
+
+function renderHomeInsights(snapshot) {
+  ensureHomeInsights();
+
+  const actionCard = document.getElementById('smart-action-card');
+  const readinessCard = document.getElementById('topic-readiness-card');
+  if (!actionCard || !readinessCard) return;
+
+  const next = getRecommendedAction(snapshot);
+  actionCard.innerHTML =
+    '<div class="insight-eyebrow">' + escHtml(next.eyebrow) + '</div>' +
+    '<div class="insight-title">' + escHtml(next.title) + '</div>' +
+    '<div class="insight-desc">' + escHtml(next.desc) + '</div>' +
+    '<div class="insight-meta">' + escHtml(next.meta) + '</div>' +
+    '<button class="btn btn-primary" onclick="' + next.action + '">' + escHtml(next.cta) + '</button>';
+
+  const counts = { ready: 0, 'needs-work': 0, 'in-progress': 0, 'not-started': 0 };
+  const prioritized = snapshot.topicStats
+    .slice()
+    .map(stat => {
+      const status = getTopicStatus(stat);
+      counts[status.cls]++;
+      return {
+        topic: stat.topic,
+        status,
+        seen: stat.seen,
+        weak: stat.weak,
+      };
+    })
+    .sort((a, b) => {
+      const rank = { 'needs-work': 0, 'in-progress': 1, 'not-started': 2, 'ready': 3 };
+      if (rank[a.status.cls] !== rank[b.status.cls]) return rank[a.status.cls] - rank[b.status.cls];
+      return a.topic.localeCompare(b.topic);
+    });
+
+  const pills = prioritized.slice(0, 16).map(item =>
+      '<span class="topic-readiness-pill ' + item.status.cls + '">' +
+        '<strong>' + escHtml(item.topic) + '</strong>' +
+        '<span>' + escHtml(item.status.label) + '</span>' +
+      '</span>'
+    ).join('');
+
+  const hiddenCount = Math.max(0, prioritized.length - 16);
+
+  const allPills = prioritized.map(item =>
+      '<span class="topic-readiness-pill ' + item.status.cls + '">' +
+        '<strong>' + escHtml(item.topic) + '</strong>' +
+        '<span>' + escHtml(item.status.label) + '</span>' +
+      '</span>'
+    ).join('');
+
+  readinessCard.innerHTML =
+    '<div class="insight-eyebrow">Topic Readiness</div>' +
+    '<div class="insight-title">Coverage Overview</div>' +
+    '<div class="topic-readiness-summary">' +
+      '<span>' + counts.ready + ' ready</span>' +
+      '<span>' + counts['needs-work'] + ' need work</span>' +
+      '<span>' + counts['in-progress'] + ' in progress</span>' +
+      '<span>' + counts['not-started'] + ' not started</span>' +
+    '</div>' +
+    '<div class="topic-readiness-grid">' + pills + '</div>' +
+    '<details class="topic-readiness-details">' +
+      '<summary>Show all topics' + (hiddenCount ? ' (+' + hiddenCount + ')' : '') + '</summary>' +
+      '<div class="topic-readiness-grid mt-12">' + allPills + '</div>' +
+    '</details>';
+}
+
 function recordAnswer(idx, correct) {
   const p = loadProgress();
   if (!p[idx]) p[idx] = {correct:0,incorrect:0,lastSeen:0};
@@ -37,26 +222,15 @@ function recordAnswer(idx, correct) {
 }
 
 function updateHomeStats() {
-  const p = loadProgress();
-  const mastered = QUESTIONS.filter((_,i) => isMastered(p[i])).length;
-  const topicsSeen = new Set(QUESTIONS.filter((_,i) => p[i] && (p[i].correct > 0 || p[i].incorrect > 0)).map(q => q.topic || tagQuestion(q))).size;
-  document.getElementById('stat-mastery').textContent = Math.round(mastered/QUESTIONS.length*100)+'%';
-  document.getElementById('stat-topics').textContent = topicsSeen;
-  document.getElementById('stat-mastered-text').textContent = mastered+' of '+QUESTIONS.length+' mastered';
-  document.getElementById('home-progress-fill').style.width = (mastered/QUESTIONS.length*100)+'%';
+  const snapshot = buildProgressSnapshot();
+  document.getElementById('stat-mastery').textContent = snapshot.masteryPct+'%';
+  document.getElementById('stat-topics').textContent = snapshot.topicsSeen;
+  document.getElementById('stat-mastered-text').textContent = snapshot.mastered+' of '+QUESTIONS.length+' mastered';
+  document.getElementById('home-progress-fill').style.width = snapshot.masteryPct+'%';
 
-  // Compute weak topics (incorrect answers with no mastery)
-  const weakMap = {};
-  QUESTIONS.forEach((q, i) => {
-    const e = p[i];
-    if (e && e.incorrect > 0 && !isMastered(e)) {
-      const t = q.topic || tagQuestion(q);
-      weakMap[t] = (weakMap[t] || 0) + 1;
-    }
-  });
   const weakList = document.getElementById('weak-topics-list');
   if (weakList) {
-    const sorted = Object.entries(weakMap).sort((a,b) => b[1]-a[1]);
+    const sorted = Object.entries(snapshot.weakMap).sort((a,b) => b[1]-a[1]);
     if (sorted.length > 0) {
       weakList.innerHTML = sorted.slice(0,5).map(([t,n]) =>
         '<span class="weak-topic-tag">'+escHtml(t)+' ('+n+')</span>'
@@ -65,6 +239,8 @@ function updateHomeStats() {
       weakList.innerHTML = '<span class="weak-topic-none">No weak areas yet — keep answering questions!</span>';
     }
   }
+
+  renderHomeInsights(snapshot);
 }
 
 // Nav
@@ -246,6 +422,7 @@ function renderQuestion() {
     '<div class="question-card">' +
     '<div class="question-num">Topic: <span class="badge-pill">'+escHtml(q.topic||'General')+'</span>'+multiHint+'</div>' +
     '<div class="question-text">'+escHtml(q.q)+' <button class="info-btn" onclick="showInfo(\'' + escJs(q.topic||'General') + '\')" title="Service info">ℹ</button></div>' +
+    '<div class="question-actions"><button class="btn btn-sm" onclick="reportCurrentQuestion()">Report question</button></div>' +
     '<div class="answers" id="answers-wrap">'+optHtml+'</div>' +
     '<div id="feedback-area"></div>' +
     '<div class="next-btn-wrap" id="next-wrap" style="display:none"><button class="btn btn-primary" onclick="nextQuestion()">'+(current<total-1?'Next Question →':'See Results')+'</button></div>' +
@@ -255,6 +432,53 @@ function renderQuestion() {
 }
 
 function escJs(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function buildQuestionReportDraft(q, selected) {
+  const correctAnswers = (Array.isArray(q.answer) ? q.answer : [q.answer]).map(i => formatAnswerLabel(i, q.options[i])).join(' | ');
+  const selectedAnswers = selected && selected.length ? formatSelectedAnswers(q, selected) : 'None provided';
+  return {
+    type: 'question',
+    cert: CERT_META.code,
+    message: [
+      'Please review this question for accuracy.',
+      '',
+      'Certification: ' + CERT_META.code,
+      'Topic: ' + (q.topic || 'General'),
+      '',
+      'Question:',
+      q.q,
+      '',
+      'Options:',
+      q.options.map((opt, i) => String.fromCharCode(65 + i) + '. ' + opt).join('\n'),
+      '',
+      'Marked correct answer:',
+      correctAnswers,
+      '',
+      'My selected answer(s):',
+      selectedAnswers,
+      '',
+      'Reason this should be reviewed:'
+    ].join('\n')
+  };
+}
+
+function openQuestionReport(draft) {
+  localStorage.setItem('aws-feedback-draft', JSON.stringify(draft));
+  window.open('../feedback.html?draft=1', '_blank', 'noopener');
+}
+
+function reportCurrentQuestion() {
+  if (!quizState || !quizState.questions || !quizState.questions.length) return;
+  const q = quizState.questions[quizState.current];
+  const selected = selectedMulti.size ? Array.from(selectedMulti).sort((a, b) => a - b) : null;
+  openQuestionReport(buildQuestionReportDraft(q, selected));
+}
+
+function reportCurrentFlashcard() {
+  if (!flashState.questions.length) return;
+  const q = flashState.questions[flashState.current];
+  openQuestionReport(buildQuestionReportDraft(q, null));
+}
 
 function handleAnswer(idx) {
   const {questions,current,mode} = quizState;
@@ -393,7 +617,19 @@ function initFlashcards() {
   document.getElementById('flash-count-badge').textContent = pool.length+' cards';
   const card = document.getElementById('flash-card');
   card.classList.remove('flipped');
+  ensureFlashActions();
   renderFlashCard();
+}
+
+function ensureFlashActions() {
+  const nav = document.querySelector('.flash-nav');
+  if (!nav || document.querySelector('.flash-extra-actions')) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'flash-extra-actions';
+  wrap.innerHTML =
+    '<button class="btn btn-sm" onclick="reportCurrentFlashcard()">Report card</button>' +
+    '<span class="flash-shortcut-hint">Use ← / → to navigate, space to flip</span>';
+  nav.insertAdjacentElement('afterend', wrap);
 }
 
 function renderFlashCard() {
